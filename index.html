@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS Golpe - Orientação contra Fraudes no WhatsApp</title>
+    <title>SOS Golpe - Scanner & Proteção contra Fraudes</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -58,8 +58,46 @@
 
         header p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             margin-top: 4px;
+        }
+
+        /* Abas de Navegação */
+        .tabs {
+            display: flex;
+            background: #111827;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.88rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tab-content.active {
+            display: flex;
         }
 
         .alert-banner {
@@ -75,9 +113,6 @@
         .alert-banner strong {
             color: #fca5a5;
             font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .alert-banner ul {
@@ -88,10 +123,9 @@
         }
 
         .section-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: var(--text-main);
-            margin-top: 4px;
         }
 
         .options-grid {
@@ -109,7 +143,6 @@
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            transition: all 0.2s ease;
             text-align: left;
             color: inherit;
             width: 100%;
@@ -139,10 +172,111 @@
         .option-arrow {
             font-size: 1.2rem;
             color: var(--text-muted);
-            padding-left: 8px;
         }
 
-        /* Modal de Ação Rápida */
+        /* Estilos do Scanner */
+        .scanner-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: #0d1424;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            resize: none;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .action-button {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .action-button:active {
+            opacity: 0.85;
+        }
+
+        .result-box {
+            display: none;
+            padding: 16px;
+            border-radius: 12px;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .risk-high {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--accent-red);
+        }
+
+        .risk-medium {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--accent-amber);
+        }
+
+        .risk-low {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--accent-green);
+        }
+
+        .risk-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-signals {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .risk-signals li {
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .risk-signals li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -187,10 +321,6 @@
             align-items: center;
         }
 
-        .modal-header h2 {
-            font-size: 1.15rem;
-        }
-
         .close-btn {
             background: #2a374f;
             border: none;
@@ -224,22 +354,6 @@
             margin-bottom: 2px;
         }
 
-        .action-button {
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            margin-top: 6px;
-        }
-
-        .action-button.danger {
-            background-color: var(--accent-red);
-        }
-
         .footer-note {
             text-align: center;
             font-size: 0.72rem;
@@ -254,56 +368,80 @@
 <div class="container">
     <header>
         <h1>🛡️ SOS Proteção</h1>
-        <p>Apoio imediato contra fraudes e extorsões no WhatsApp</p>
+        <p>Apoio imediato contra fraudes e extorsões</p>
     </header>
 
-    <div class="alert-banner">
-        <strong>⚠️ REGRA DE OURO IMEDIATA:</strong>
-        <ul>
-            <li>• <b>NÃO</b> faça nenhum pagamento ou Pix agora.</li>
-            <li>• <b>NÃO</b> apague a conversa nem bloqueie antes de registrar prints.</li>
-            <li>• <b>NÃO</b> envie novos áudios ou vídeos tentando se justificar.</li>
-        </ul>
+    <!-- Abas -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('guias')">Guias de Emergência</button>
+        <button class="tab-btn" onclick="switchTab('scanner')">🔍 Scanner de Mensagem</button>
     </div>
 
-    <div class="section-title">O que está acontecendo com você?</div>
+    <!-- Aba 1: Guias -->
+    <div class="tab-content active" id="tab-guias">
+        <div class="alert-banner">
+            <strong>⚠️ REGRA DE OURO IMEDIATA:</strong>
+            <ul>
+                <li>• <b>NÃO</b> faça nenhum pagamento ou Pix agora.</li>
+                <li>• <b>NÃO</b> apague a conversa antes de tirar prints com horário.</li>
+                <li>• <b>NÃO</b> envie áudios ou vídeos se justificando.</li>
+            </ul>
+        </div>
 
-    <div class="options-grid">
-        <button class="option-card" onclick="openGuide('extorsao')">
-            <div class="option-info">
-                <span class="option-title">🚨 Ameaça ou Extorsão</span>
-                <span class="option-desc">Chantagem com fotos, vazamento ou ameaça física</span>
-            </div>
-            <span class="option-arrow">›</span>
-        </button>
+        <div class="section-title">Selecione o tipo de situação:</div>
 
-        <button class="option-card" onclick="openGuide('falso-parente')">
-            <div class="option-info">
-                <span class="option-title">👤 Golpe do Novo Número</span>
-                <span class="option-desc">"Oi mãe/pai, mudei de número e preciso de dinheiro"</span>
-            </div>
-            <span class="option-arrow">›</span>
-        </button>
+        <div class="options-grid">
+            <button class="option-card" onclick="openGuide('extorsao')">
+                <div class="option-info">
+                    <span class="option-title">🚨 Ameaça ou Extorsão</span>
+                    <span class="option-desc">Chantagem com fotos, vazamento ou ameaça física</span>
+                </div>
+                <span class="option-arrow">›</span>
+            </button>
 
-        <button class="option-card" onclick="openGuide('codigo')">
-            <div class="option-info">
-                <span class="option-title">📲 Código SMS ou WhatsApp Clonado</span>
-                <span class="option-desc">Pediram código de 6 dígitos ou perdeu o acesso à conta</span>
-            </div>
-            <span class="option-arrow">›</span>
-        </button>
+            <button class="option-card" onclick="openGuide('falso-parente')">
+                <div class="option-info">
+                    <span class="option-title">👤 Golpe do Novo Número</span>
+                    <span class="option-desc">"Oi mãe/pai, mudei de número e preciso de um Pix"</span>
+                </div>
+                <span class="option-arrow">›</span>
+            </button>
 
-        <button class="option-card" onclick="openGuide('falsa-compra')">
-            <div class="option-info">
-                <span class="option-title">💳 Falso Suporte ou Falso Pix</span>
-                <span class="option-desc">Mensagem de banco alegando compra suspeita</span>
-            </div>
-            <span class="option-arrow">›</span>
-        </button>
+            <button class="option-card" onclick="openGuide('codigo')">
+                <div class="option-info">
+                    <span class="option-title">📲 Código SMS ou WhatsApp Invadido</span>
+                    <span class="option-desc">Pediram código de 6 dígitos ou perdeu acesso</span>
+                </div>
+                <span class="option-arrow">›</span>
+            </button>
+
+            <button class="option-card" onclick="openGuide('falsa-compra')">
+                <div class="option-info">
+                    <span class="option-title">💳 Falso Suporte de Banco</span>
+                    <span class="option-desc">Mensagem avisando de compra aprovada suspeita</span>
+                </div>
+                <span class="option-arrow">›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Aba 2: Scanner -->
+    <div class="tab-content" id="tab-scanner">
+        <div class="scanner-card">
+            <div class="section-title">Cole o texto da mensagem suspeita:</div>
+            <textarea id="suspiciousInput" placeholder="Ex: Oi pai, troquei de chip... ou: Sua conta será bloqueada hoje se não pagar a taxa..."></textarea>
+            <button class="action-button" onclick="analyzeText()">Analisar Mensagem</button>
+        </div>
+
+        <div class="result-box" id="analysisResult">
+            <div class="risk-title" id="riskTitle"></div>
+            <p id="riskSummary" style="font-size: 0.88rem;"></p>
+            <ul class="risk-signals" id="riskSignals"></ul>
+        </div>
     </div>
 
     <div class="footer-note">
-        Suas respostas não saem do seu navegador. Mantenha a calma.
+        Suas mensagens não são enviadas para nenhum servidor. O teste é 100% privado no celular.
     </div>
 </div>
 
@@ -320,40 +458,136 @@
 </div>
 
 <script>
+    // Navegação de abas
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        if (tabId === 'guias') {
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            document.getElementById('tab-guias').classList.add('active');
+        } else {
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            document.getElementById('tab-scanner').classList.add('active');
+        }
+    }
+
+    // Motor de Análise de Mensagens
+    function analyzeText() {
+        const text = document.getElementById('suspiciousInput').value.toLowerCase().trim();
+        const resultBox = document.getElementById('analysisResult');
+        const title = document.getElementById('riskTitle');
+        const summary = document.getElementById('riskSummary');
+        const signals = document.getElementById('riskSignals');
+
+        if (!text) {
+            alert('Por favor, cole ou digite o texto da mensagem.');
+            return;
+        }
+
+        let score = 0;
+        let reasons = [];
+
+        // Padrão 1: Urgência e pressão imediata
+        if (text.match(/urgente|imediatamente|hoje mesmo|nas próximas horas|bloqueio em|agora mesmo|último aviso/)) {
+            score += 3;
+            reasons.push("Senso de urgência forçado para impedir que você pense com calma.");
+        }
+
+        // Padrão 2: Pedido de dinheiro ou Pix
+        if (text.match(/pix|transferência|transfira|boleto|pague|depósito|valor|favorecido/)) {
+            score += 3;
+            reasons.push("Menção a dinheiro ou transação imediata (Pix/Boleto).");
+        }
+
+        // Padrão 3: Golpe do número novo
+        if (text.match(/troquei de número|novo número|apague o outro|este é meu número novo|oi mãe|oi pai/)) {
+            score += 4;
+            reasons.push("Indício típico do Golpe do Falso Parente / Novo Número.");
+        }
+
+        // Padrão 4: Códigos e credenciais
+        if (text.match(/código|6 dígitos|seis dígitos|sms|autenticação|verificação|senha/)) {
+            score += 4;
+            reasons.push("Tentativa de obter código de segurança (risco de invasão da conta).");
+        }
+
+        // Padrão 5: Ameaça e intimidação
+        if (text.match(/delegacia|mandado|prisão|fotos|vazar|processo|advogado|polícia civil|penhora/)) {
+            score += 4;
+            reasons.push("Tática de intimidação jurídica, policial ou chantagem íntima.");
+        }
+
+        // Padrão 6: Links
+        if (text.match(/http|https|bit\.ly|tinyurl|\.com|\.site|\.online|\.xyz/)) {
+            score += 2;
+            reasons.push("Contém links desconhecidos para roubo de dados (phishing).");
+        }
+
+        resultBox.style.display = 'flex';
+        resultBox.className = 'result-box';
+        signals.innerHTML = '';
+
+        if (score >= 6) {
+            resultBox.classList.add('risk-high');
+            title.innerHTML = "🚨 ALTO RISCO DE GOLPE";
+            title.style.color = "var(--accent-red)";
+            summary.innerText = "Esta mensagem apresenta características claras de fraude ou tentativa de extorsão. Siga as orientações:";
+        } else if (score >= 3) {
+            resultBox.classList.add('risk-medium');
+            title.innerHTML = "⚠️ MENSAGEM SUSPEITA";
+            title.style.color = "var(--accent-amber)";
+            summary.innerText = "Foram encontrados padrões comuns em golpes. Proceda com cautela extrema:";
+        } else {
+            resultBox.classList.add('risk-low');
+            title.innerHTML = "🟢 BAIXO RISCO APARENTE";
+            title.style.color = "var(--accent-green)";
+            summary.innerText = "Não detectamos os termos clássicos de fraudes, mas mantenha a atenção:";
+            reasons.push("Nunca transfira dinheiro sem confirmar por ligação de voz comum.");
+        }
+
+        reasons.forEach(r => {
+            const li = document.createElement('li');
+            li.innerText = r;
+            signals.appendChild(li);
+        });
+    }
+
+    // Conteúdo dos Guias
     const guides = {
         'extorsao': {
             title: "🚨 Extorsão ou Chantagem",
             steps: [
                 { title: "1. Não transfira nenhum valor", desc: "Golpistas continuam exigindo mais dinheiro mesmo após o primeiro pagamento. Ceder não encerra a chantagem." },
-                { title: "2. Tire prints de tudo", desc: "Fotografe a conversa inteira, mostrando o número de telefone com DDD, horário e os dados de qualquer chave Pix informada." },
-                { title: "3. Preserve as provas", desc: "Não apague a conversa. Exporte o histórico (Configurações da conversa > Mais > Exportar conversa)." },
-                { title: "4. Silencie e não responda", desc: "A pressão psicológica diminui quando eles percebem que você parou de reagir imediatamente." },
-                { title: "5. Registre Boletim de Ocorrência", desc: "Procure a delegacia online do seu estado ou delegacia especializada em crimes cibernéticos." }
+                { title: "2. Tire prints de tudo", desc: "Fotografe a conversa inteira, mostrando o número com DDD, horários e dados de eventuais chaves Pix." },
+                { title: "3. Preserve as provas", desc: "Não apague a conversa. Exporte o histórico (Configurações > Mais > Exportar conversa)." },
+                { title: "4. Silencie e não responda", desc: "A pressão diminui quando percebem que você parou de reagir imediatamente." },
+                { title: "5. Registre B.O.", desc: "Procure a delegacia online do seu estado especializada em crimes cibernéticos." }
             ]
         },
         'falso-parente': {
             title: "👤 Golpe do Novo Número",
             steps: [
-                { title: "1. Ligue para o número antigo", desc: "Ligue por chamada de voz ou de vídeo convencional para o número que você sempre usou para falar com essa pessoa." },
-                { title: "2. Faça uma pergunta pessoal", desc: "Se não conseguir contato, faça uma pergunta cuja resposta apenas o familiar real saiba (ex: nome do animal de infância)." },
-                { title: "3. Jamais faça Pix para terceiros", desc: "Geralmente a chave Pix está no nome de uma pessoa desconhecida. Isso é certeza de fraude." },
-                { title: "4. Avise os outros familiares", desc: "O criminoso pode estar tentando contatar outros parentes da lista ao mesmo tempo." }
+                { title: "1. Ligue para o número antigo", desc: "Faça uma chamada de voz convencional para o telefone usual desse parente." },
+                { title: "2. Faça uma pergunta pessoal", desc: "Pergunte algo que apenas a pessoa real saiba (ex: o apelido de infância)." },
+                { title: "3. Jamais faça Pix para terceiros", desc: "Se o Pix está em nome de outra pessoa, trata-se de fraude garantida." },
+                { title: "4. Avise os outros parentes", desc: "O criminoso pode estar contatando outras pessoas da família." }
             ]
         },
         'codigo': {
             title: "📲 Tentativa de Invasão de Conta",
             steps: [
-                { title: "1. Nunca passe o código SMS", desc: "O código de 6 dígitos que chega por SMS dá acesso total ao seu WhatsApp." },
-                { title: "2. Se já passou e perdeu a conta", desc: "Reinstale o WhatsApp no seu aparelho e tente solicitar o código de verificação novamente para recuperar a sessão." },
-                { title: "3. Ative a confirmação em duas etapas", desc: "No WhatsApp, vá em Configurações > Conta > Confirmação em duas etapas e crie um PIN com senha segura." }
+                { title: "1. Nunca passe o código SMS", desc: "O código de 6 dígitos enviado por SMS concede controle da sua conta." },
+                { title: "2. Se perdeu o WhatsApp", desc: "Reinstale o aplicativo e peça o SMS de ativação novamente no aparelho." },
+                { title: "3. Ative confirmação em duas etapas", desc: "Vá em Configurações > Conta > Confirmação em duas etapas e crie um PIN." }
             ]
         },
         'falsa-compra': {
             title: "💳 Falso Suporte de Banco",
             steps: [
-                { title: "1. Não clique em links enviados", desc: "Bancos não mandam links por WhatsApp exigindo cancelamento imediato de compras." },
-                { title: "2. Abra o app oficial do seu banco", desc: "Entre diretamente no app do banco pelo celular e confira seu extrato e limites por lá." },
-                { title: "3. Ligue no número atrás do cartão", desc: "Em caso de dúvida, ligue apenas para os telefones oficiais impressos no verso do seu cartão físico." }
+                { title: "1. Não clique em links", desc: "Bancos não exigem confirmação imediata de compra por links de WhatsApp." },
+                { title: "2. Acesse o aplicativo oficial", desc: "Consulte diretamente no app oficial do banco se existe lançamento pendente." },
+                { title: "3. Use o telefone do cartão", desc: "Ligue para a central pelo número no verso do seu cartão físico." }
             ]
         }
     };
@@ -361,18 +595,15 @@
     function openGuide(type) {
         const guide = guides[type];
         if (!guide) return;
-
         document.getElementById('modalTitle').innerText = guide.title;
         const stepsContainer = document.getElementById('modalSteps');
         stepsContainer.innerHTML = '';
-
         guide.steps.forEach(step => {
             const li = document.createElement('li');
             li.className = 'step-item';
             li.innerHTML = `<strong>${step.title}</strong>${step.desc}`;
             stepsContainer.appendChild(li);
         });
-
         document.getElementById('guideModal').classList.add('active');
     }
 
