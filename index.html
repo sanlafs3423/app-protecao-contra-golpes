@@ -727,6 +727,700 @@ Todas as capturas de tela (prints) com data, hora, número com DDD e dados banc�
         document.getElementById('guideModal').classList.remove('active');
     }
 </script>
+</body>
+</html>        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        header {
+            text-align: center;
+            padding: 12px 0 4px 0;
+        }
+
+        header h1 {
+            font-size: 1.45rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* Abas de Navegação */
+        .tabs {
+            display: flex;
+            background: #111827;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 9px 4px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        .alert-banner {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .alert-banner strong {
+            color: #fca5a5;
+            font-size: 0.92rem;
+        }
+
+        .alert-banner ul {
+            list-style: none;
+            font-size: 0.82rem;
+            color: #fee2e2;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            text-align: left;
+            color: inherit;
+            width: 100%;
+        }
+
+        .option-card:active {
+            transform: scale(0.98);
+            border-color: var(--accent-blue);
+        }
+
+        .option-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .option-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .option-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .option-arrow {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        /* Formulários e Inputs */
+        .form-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            background: #0d1424;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #ffffff;
+            font-size: 0.88rem;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent-blue);
+        }
+
+        textarea {
+            height: 110px;
+            resize: none;
+        }
+
+        .action-button {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .action-button:active {
+            opacity: 0.85;
+        }
+
+        .copy-button {
+            background-color: var(--accent-green);
+            color: #052e16;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Resultados */
+        .result-box {
+            display: none;
+            padding: 16px;
+            border-radius: 12px;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .risk-high { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--accent-red); }
+        .risk-medium { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--accent-amber); }
+        .risk-low { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); }
+
+        .risk-title {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-signals {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.84rem;
+            line-height: 1.4;
+        }
+
+        .risk-signals li {
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .risk-signals li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .report-output {
+            background: #0d1424;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 12px;
+            color: #d1d5db;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 100;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 24px 20px 32px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: slideUp 0.25s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: #2a374f;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .step-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step-item {
+            background: #0d1424;
+            border: 1px solid #1f2a3f;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .step-item strong {
+            color: var(--accent-amber);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: auto;
+            padding: 12px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🛡️ SOS Proteção</h1>
+        <p>Apoio imediato e proteção contra fraudes</p>
+    </header>
+
+    <!-- 3 Abas Principais -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('guias')">Guias Rápidos</button>
+        <button class="tab-btn" onclick="switchTab('scanner')">🔍 Scanner</button>
+        <button class="tab-btn" onclick="switchTab('bo')">📋 Gerar B.O.</button>
+    </div>
+
+    <!-- Aba 1: Guias -->
+    <div class="tab-content active" id="tab-guias">
+        <div class="alert-banner">
+            <strong>⚠️ REGRAS DE EMERGÊNCIA:</strong>
+            <ul>
+                <li>• <b>NÃO</b> faça nenhum pagamento ou Pix agora.</li>
+                <li>• <b>NÃO</b> apague a conversa antes de tirar prints.</li>
+                <li>• <b>NÃO</b> envie áudios ou vídeos se justificando.</li>
+            </ul>
+        </div>
+
+        <div class="section-title">Qual situação está acontecendo?</div>
+
+        <div class="options-grid">
+            <button class="option-card" onclick="openGuide('extorsao')">
+                <div class="option-info">
+                    <span class="option-title">🚨 Ameaça ou Extorsão</span>
+                    <span class="option-desc">Chantagem com fotos, vazamento ou intimidação</span>
+                </div>
+                <span class="option-arrow">›</span>
+            </button>
+
+            <button class="option-card" onclick="openGuide('falso-parente')">
+                <div class="option-info">
+                    <span class="option-title">👤 Golpe do Novo Número</span>
+                    <span class="option-desc">"Oi mãe/pai, mudei de número e preciso de um Pix"</span>
+                </div>
+                <span class="option-arrow">›</span>
+            </button>
+
+            <button class="option-card" onclick="openGuide('codigo')">
+                <div class="option-info">
+                    <span class="option-title">📲 Código SMS / WhatsApp Invadido</span>
+                    <span class="option-desc">Pediram código de 6 dígitos ou perdeu o acesso</span>
+                </div>
+                <span class="option-arrow">›</span>
+            </button>
+
+            <button class="option-card" onclick="openGuide('falsa-compra')">
+                <div class="option-info">
+                    <span class="option-title">💳 Falso Suporte de Banco</span>
+                    <span class="option-desc">Mensagem avisando de compra aprovada suspeita</span>
+                </div>
+                <span class="option-arrow">›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Aba 2: Scanner -->
+    <div class="tab-content" id="tab-scanner">
+        <div class="form-card">
+            <div class="section-title">Cole o texto da mensagem suspeita:</div>
+            <textarea id="suspiciousInput" placeholder="Ex: Oi pai, troquei de chip... ou: Sua conta será bloqueada hoje se não regularizar..."></textarea>
+            <button class="action-button" onclick="analyzeText()">Analisar Mensagem</button>
+        </div>
+
+        <div class="result-box" id="analysisResult">
+            <div class="risk-title" id="riskTitle"></div>
+            <p id="riskSummary" style="font-size: 0.88rem;"></p>
+            <ul class="risk-signals" id="riskSignals"></ul>
+        </div>
+    </div>
+
+    <!-- Aba 3: Gerador de B.O. -->
+    <div class="tab-content" id="tab-bo">
+        <div class="form-card">
+            <div class="section-title">Dados para Boletim de Ocorrência</div>
+            
+            <div class="form-group">
+                <label>Tipo de Ocorrência:</label>
+                <select id="boTipo">
+                    <option value="Tentativa de Extorsão / Chantagem">Tentativa de Extorsão / Chantagem</option>
+                    <option value="Golpe do Novo Número (Falso Parente)">Golpe do Novo Número (Falso Parente)</option>
+                    <option value="Invasão de Conta do WhatsApp (Código SMS)">Invasão de Conta do WhatsApp</option>
+                    <option value="Falsa Central Telefônica / Falso Banco">Falsa Central Telefônica / Falso Banco</option>
+                    <option value="Fraude com Pagamento Pix Realizado">Fraude com Pagamento Pix Realizado</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Número do Criminoso (com DDD):</label>
+                <input type="tel" id="boNumero" placeholder="Ex: (11) 99999-9999">
+            </div>
+
+            <div class="form-group">
+                <label>Chave Pix ou Conta solicitada:</label>
+                <input type="text" id="boChave" placeholder="Ex: CPF, e-mail, chave aleatória ou conta">
+            </div>
+
+            <div class="form-group">
+                <label>Nome do titular da conta de destino:</label>
+                <input type="text" id="boTitular" placeholder="Ex: Nome que aparece no comprovante/chave">
+            </div>
+
+            <div class="form-group">
+                <label>Valor exigido ou transferido (R$):</label>
+                <input type="text" id="boValor" placeholder="Ex: R$ 1.500,00">
+            </div>
+
+            <div class="form-group">
+                <label>O que o criminoso alegou?</label>
+                <textarea id="boRelato" placeholder="Ex: Entrou em contato afirmando ser meu filho, alegando emergência médica e solicitando transferência imediata..."></textarea>
+            </div>
+
+            <button class="action-button" onclick="generateReport()">Gerar Histórico para a Polícia</button>
+        </div>
+
+        <div class="form-card" id="boResultCard" style="display: none;">
+            <div class="section-title">Texto pronto para colar no B.O.:</div>
+            <div class="report-output" id="boOutputText"></div>
+            <button class="copy-button" onclick="copyBoText()">📋 Copiar Texto Completo</button>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        Os dados não saem do seu navegador. Mantenha os prints salvos.
+    </div>
+</div>
+
+<!-- Modal Guia -->
+<div class="modal" id="guideModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Instruções</h2>
+            <button class="close-btn" onclick="closeGuide()">✕</button>
+        </div>
+        <ul class="step-list" id="modalSteps"></ul>
+        <button class="action-button" onclick="closeGuide()">Entendi o que fazer</button>
+    </div>
+</div>
+
+<script>
+    // Controle de Abas
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        if (tabId === 'guias') {
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            document.getElementById('tab-guias').classList.add('active');
+        } else if (tabId === 'scanner') {
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            document.getElementById('tab-scanner').classList.add('active');
+        } else if (tabId === 'bo') {
+            document.querySelectorAll('.tab-btn')[2].classList.add('active');
+            document.getElementById('tab-bo').classList.add('active');
+        }
+    }
+
+    // Scanner
+    function analyzeText() {
+        const text = document.getElementById('suspiciousInput').value.toLowerCase().trim();
+        const resultBox = document.getElementById('analysisResult');
+        const title = document.getElementById('riskTitle');
+        const summary = document.getElementById('riskSummary');
+        const signals = document.getElementById('riskSignals');
+
+        if (!text) {
+            alert('Por favor, cole o texto da mensagem.');
+            return;
+        }
+
+        let score = 0;
+        let reasons = [];
+
+        if (text.match(/urgente|imediatamente|hoje mesmo|nas próximas horas|bloqueio em|agora mesmo|último aviso/)) {
+            score += 3;
+            reasons.push("Senso de urgência forçado para impedir reflexão calma.");
+        }
+        if (text.match(/pix|transferência|transfira|boleto|pague|depósito|valor|favorecido/)) {
+            score += 3;
+            reasons.push("Menção a dinheiro ou transação imediata (Pix/Boleto).");
+        }
+        if (text.match(/troquei de número|novo número|apague o outro|este é meu número novo|oi mãe|oi pai/)) {
+            score += 4;
+            reasons.push("Padrão clássico do Golpe do Novo Número / Falso Parente.");
+        }
+        if (text.match(/código|6 dígitos|seis dígitos|sms|autenticação|verificação|senha/)) {
+            score += 4;
+            reasons.push("Tentativa de captura de código SMS de verificação.");
+        }
+        if (text.match(/delegacia|mandado|prisão|fotos|vazar|processo|advogado|polícia|penhora/)) {
+            score += 4;
+            reasons.push("Tática de intimidação jurídica ou chantagem com dados íntimos.");
+        }
+        if (text.match(/http|https|bit\.ly|tinyurl|\.com|\.site|\.online|\.xyz/)) {
+            score += 2;
+            reasons.push("Presença de link desconhecido ou encurtado.");
+        }
+
+        resultBox.style.display = 'flex';
+        resultBox.className = 'result-box';
+        signals.innerHTML = '';
+
+        if (score >= 6) {
+            resultBox.classList.add('risk-high');
+            title.innerHTML = "🚨 ALTO RISCO DE GOLPE";
+            title.style.color = "var(--accent-red)";
+            summary.innerText = "Esta mensagem apresenta fortes características de fraude ou extorsão:";
+        } else if (score >= 3) {
+            resultBox.classList.add('risk-medium');
+            title.innerHTML = "⚠️ MENSAGEM SUSPEITA";
+            title.style.color = "var(--accent-amber)";
+            summary.innerText = "Padrões suspeitos encontrados. Proceda com cautela:";
+        } else {
+            resultBox.classList.add('risk-low');
+            title.innerHTML = "🟢 BAIXO RISCO APARENTE";
+            title.style.color = "var(--accent-green)";
+            summary.innerText = "Não foram encontrados termos típicos de golpes comuns:";
+            reasons.push("Mesmo assim, nunca transfira valores sem antes fazer uma chamada telefônica comum.");
+        }
+
+        reasons.forEach(r => {
+            const li = document.createElement('li');
+            li.innerText = r;
+            signals.appendChild(li);
+        });
+    }
+
+    // Gerador de B.O.
+    function generateReport() {
+        const tipo = document.getElementById('boTipo').value;
+        const numero = document.getElementById('boNumero').value || 'Não informado';
+        const chave = document.getElementById('boChave').value || 'Não informada';
+        const titular = document.getElementById('boTitular').value || 'Não informado';
+        const valor = document.getElementById('boValor').value || 'Não informado';
+        const relato = document.getElementById('boRelato').value || 'Sem detalhes adicionais informados.';
+
+        const dataHora = new Date().toLocaleString('pt-BR');
+
+        const textoFinal = 
+`HISTÓRICO DA OCORRÊNCIA PARA REGISTRO POLICIAL:
+
+TIPO PENAL / FATO: ${tipo}
+DATA/HORA DO REGISTRO: ${dataHora}
+
+DADOS DO SUSPEITO / MEIO UTILIZADO:
+- Telefone/WhatsApp do infrator: ${numero}
+- Chave Pix / Conta destino indicada: ${chave}
+- Nome do titular da conta receptora: ${titular}
+- Valor solicitado / transferido: ${valor}
+
+DESCRIÇÃO DOS FATOS:
+Comunico à autoridade policial que fui abordado(a) via aplicativo de mensagens WhatsApp/SMS pelo numeral supracitado, sob o pretexto de: ${relato}
+
+INFORMAÇÕES COMPLEMENTARES:
+Todas as capturas de tela (prints) com data, hora, número com DDD e dados bancários foram devidamente salvas e encontram-se preservadas para perícia técnica.`;
+
+        document.getElementById('boOutputText').innerText = textoFinal;
+        document.getElementById('boResultCard').style.display = 'flex';
+    }
+
+    function copyBoText() {
+        const text = document.getElementById('boOutputText').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Texto copiado com sucesso! Agora basta colar na página da Delegacia Eletrônica.');
+        });
+    }
+
+    // Guias
+    const guides = {
+        'extorsao': {
+            title: "🚨 Extorsão ou Chantagem",
+            steps: [
+                { title: "1. Não transfira nenhum valor", desc: "Golpistas continuam exigindo mais dinheiro mesmo após o primeiro pagamento. Ceder não encerra a chantagem." },
+                { title: "2. Tire prints de tudo", desc: "Fotografe a conversa inteira, mostrando o número com DDD, horários e dados de eventuais chaves Pix." },
+                { title: "3. Preserve as provas", desc: "Não apague a conversa. Exporte o histórico (Configurações > Mais > Exportar conversa)." },
+                { title: "4. Silencie e não responda", desc: "A pressão diminui quando percebem que você parou de reagir imediatamente." },
+                { title: "5. Registre B.O.", desc: "Use a aba 'Gerar B.O.' deste app para registrar boletim online." }
+            ]
+        },
+        'falso-parente': {
+            title: "👤 Golpe do Novo Número",
+            steps: [
+                { title: "1. Ligue para o número antigo", desc: "Faça uma chamada de voz convencional para o telefone usual desse parente." },
+                { title: "2. Faça uma pergunta pessoal", desc: "Pergunte algo que apenas a pessoa real saiba (ex: o apelido de infância)." },
+                { title: "3. Jamais faça Pix para terceiros", desc: "Se o Pix está em nome de outra pessoa, trata-se de fraude garantida." },
+                { title: "4. Avise os outros parentes", desc: "O criminoso pode estar contatando outras pessoas da família." }
+            ]
+        },
+        'codigo': {
+            title: "📲 Tentativa de Invasão de Conta",
+            steps: [
+                { title: "1. Nunca passe o código SMS", desc: "O código de 6 dígitos concede controle da sua conta." },
+                { title: "2. Se perdeu o WhatsApp", desc: "Reinstale o aplicativo e peça o SMS de ativação novamente no aparelho." },
+                { title: "3. Ative confirmação em duas etapas", desc: "Vá em Configurações > Conta > Confirmação em duas etapas e crie um PIN." }
+            ]
+        },
+        'falsa-compra': {
+            title: "💳 Falso Suporte de Banco",
+            steps: [
+                { title: "1. Não clique em links", desc: "Bancos não exigem confirmação imediata de compra por links de WhatsApp." },
+                { title: "2. Acesse o aplicativo oficial", desc: "Consulte diretamente no app oficial do banco se existe lançamento pendente." },
+                { title: "3. Use o telefone do cartão", desc: "Ligue para a central pelo número no verso do seu cartão físico." }
+            ]
+        }
+    };
+
+    function openGuide(type) {
+        const guide = guides[type];
+        if (!guide) return;
+        document.getElementById('modalTitle').innerText = guide.title;
+        const stepsContainer = document.getElementById('modalSteps');
+        stepsContainer.innerHTML = '';
+        guide.steps.forEach(step => {
+            const li = document.createElement('li');
+            li.className = 'step-item';
+            li.innerHTML = `<strong>${step.title}</strong>${step.desc}`;
+            stepsContainer.appendChild(li);
+        });
+        document.getElementById('guideModal').classList.add('active');
+    }
+
+    function closeGuide() {
+        document.getElementById('guideModal').classList.remove('active');
+    }
+</script>
 
 </body>
 </html>        .container {
