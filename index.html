@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Golpe - Orientação contra Fraudes no WhatsApp</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #161e2e;
+            --card-border: #232f46;
+            --accent-red: #ef4444;
+            --accent-amber: #f59e0b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        header {
+            text-align: center;
+            padding: 12px 0 6px 0;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .alert-banner {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .alert-banner strong {
+            color: #fca5a5;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .alert-banner ul {
+            list-style: none;
+            font-size: 0.82rem;
+            color: #fee2e2;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 4px;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            color: inherit;
+            width: 100%;
+        }
+
+        .option-card:active {
+            transform: scale(0.98);
+            border-color: var(--accent-blue);
+        }
+
+        .option-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .option-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .option-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .option-arrow {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding-left: 8px;
+        }
+
+        /* Modal de Ação Rápida */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 100;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 24px 20px 32px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: slideUp 0.25s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.15rem;
+        }
+
+        .close-btn {
+            background: #2a374f;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .step-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step-item {
+            background: #0d1424;
+            border: 1px solid #1f2a3f;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .step-item strong {
+            color: var(--accent-amber);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .action-button {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+
+        .action-button.danger {
+            background-color: var(--accent-red);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: auto;
+            padding: 12px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🛡️ SOS Proteção</h1>
+        <p>Apoio imediato contra fraudes e extorsões no WhatsApp</p>
+    </header>
+
+    <div class="alert-banner">
+        <strong>⚠️ REGRA DE OURO IMEDIATA:</strong>
+        <ul>
+            <li>• <b>NÃO</b> faça nenhum pagamento ou Pix agora.</li>
+            <li>• <b>NÃO</b> apague a conversa nem bloqueie antes de registrar prints.</li>
+            <li>• <b>NÃO</b> envie novos áudios ou vídeos tentando se justificar.</li>
+        </ul>
+    </div>
+
+    <div class="section-title">O que está acontecendo com você?</div>
+
+    <div class="options-grid">
+        <button class="option-card" onclick="openGuide('extorsao')">
+            <div class="option-info">
+                <span class="option-title">🚨 Ameaça ou Extorsão</span>
+                <span class="option-desc">Chantagem com fotos, vazamento ou ameaça física</span>
+            </div>
+            <span class="option-arrow">›</span>
+        </button>
+
+        <button class="option-card" onclick="openGuide('falso-parente')">
+            <div class="option-info">
+                <span class="option-title">👤 Golpe do Novo Número</span>
+                <span class="option-desc">"Oi mãe/pai, mudei de número e preciso de dinheiro"</span>
+            </div>
+            <span class="option-arrow">›</span>
+        </button>
+
+        <button class="option-card" onclick="openGuide('codigo')">
+            <div class="option-info">
+                <span class="option-title">📲 Código SMS ou WhatsApp Clonado</span>
+                <span class="option-desc">Pediram código de 6 dígitos ou perdeu o acesso à conta</span>
+            </div>
+            <span class="option-arrow">›</span>
+        </button>
+
+        <button class="option-card" onclick="openGuide('falsa-compra')">
+            <div class="option-info">
+                <span class="option-title">💳 Falso Suporte ou Falso Pix</span>
+                <span class="option-desc">Mensagem de banco alegando compra suspeita</span>
+            </div>
+            <span class="option-arrow">›</span>
+        </button>
+    </div>
+
+    <div class="footer-note">
+        Suas respostas não saem do seu navegador. Mantenha a calma.
+    </div>
+</div>
+
+<!-- Modal Guia -->
+<div class="modal" id="guideModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Instruções</h2>
+            <button class="close-btn" onclick="closeGuide()">✕</button>
+        </div>
+        <ul class="step-list" id="modalSteps"></ul>
+        <button class="action-button" onclick="closeGuide()">Entendi o que fazer</button>
+    </div>
+</div>
+
+<script>
+    const guides = {
+        'extorsao': {
+            title: "🚨 Extorsão ou Chantagem",
+            steps: [
+                { title: "1. Não transfira nenhum valor", desc: "Golpistas continuam exigindo mais dinheiro mesmo após o primeiro pagamento. Ceder não encerra a chantagem." },
+                { title: "2. Tire prints de tudo", desc: "Fotografe a conversa inteira, mostrando o número de telefone com DDD, horário e os dados de qualquer chave Pix informada." },
+                { title: "3. Preserve as provas", desc: "Não apague a conversa. Exporte o histórico (Configurações da conversa > Mais > Exportar conversa)." },
+                { title: "4. Silencie e não responda", desc: "A pressão psicológica diminui quando eles percebem que você parou de reagir imediatamente." },
+                { title: "5. Registre Boletim de Ocorrência", desc: "Procure a delegacia online do seu estado ou delegacia especializada em crimes cibernéticos." }
+            ]
+        },
+        'falso-parente': {
+            title: "👤 Golpe do Novo Número",
+            steps: [
+                { title: "1. Ligue para o número antigo", desc: "Ligue por chamada de voz ou de vídeo convencional para o número que você sempre usou para falar com essa pessoa." },
+                { title: "2. Faça uma pergunta pessoal", desc: "Se não conseguir contato, faça uma pergunta cuja resposta apenas o familiar real saiba (ex: nome do animal de infância)." },
+                { title: "3. Jamais faça Pix para terceiros", desc: "Geralmente a chave Pix está no nome de uma pessoa desconhecida. Isso é certeza de fraude." },
+                { title: "4. Avise os outros familiares", desc: "O criminoso pode estar tentando contatar outros parentes da lista ao mesmo tempo." }
+            ]
+        },
+        'codigo': {
+            title: "📲 Tentativa de Invasão de Conta",
+            steps: [
+                { title: "1. Nunca passe o código SMS", desc: "O código de 6 dígitos que chega por SMS dá acesso total ao seu WhatsApp." },
+                { title: "2. Se já passou e perdeu a conta", desc: "Reinstale o WhatsApp no seu aparelho e tente solicitar o código de verificação novamente para recuperar a sessão." },
+                { title: "3. Ative a confirmação em duas etapas", desc: "No WhatsApp, vá em Configurações > Conta > Confirmação em duas etapas e crie um PIN com senha segura." }
+            ]
+        },
+        'falsa-compra': {
+            title: "💳 Falso Suporte de Banco",
+            steps: [
+                { title: "1. Não clique em links enviados", desc: "Bancos não mandam links por WhatsApp exigindo cancelamento imediato de compras." },
+                { title: "2. Abra o app oficial do seu banco", desc: "Entre diretamente no app do banco pelo celular e confira seu extrato e limites por lá." },
+                { title: "3. Ligue no número atrás do cartão", desc: "Em caso de dúvida, ligue apenas para os telefones oficiais impressos no verso do seu cartão físico." }
+            ]
+        }
+    };
+
+    function openGuide(type) {
+        const guide = guides[type];
+        if (!guide) return;
+
+        document.getElementById('modalTitle').innerText = guide.title;
+        const stepsContainer = document.getElementById('modalSteps');
+        stepsContainer.innerHTML = '';
+
+        guide.steps.forEach(step => {
+            const li = document.createElement('li');
+            li.className = 'step-item';
+            li.innerHTML = `<strong>${step.title}</strong>${step.desc}`;
+            stepsContainer.appendChild(li);
+        });
+
+        document.getElementById('guideModal').classList.add('active');
+    }
+
+    function closeGuide() {
+        document.getElementById('guideModal').classList.remove('active');
+    }
+</script>
+
+</body>
+</html>
