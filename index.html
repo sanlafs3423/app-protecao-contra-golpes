@@ -38,8 +38,12 @@
       font: inherit;
     }
 
-    button {
+    button, a.button-link {
       cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .app {
@@ -203,7 +207,7 @@
       resize: vertical;
     }
 
-    .button {
+    .button, .button-link {
       min-height: 46px;
       padding: 11px 14px;
       border: 0;
@@ -211,9 +215,10 @@
       background: var(--blue);
       color: white;
       font-weight: 750;
+      text-align: center;
     }
 
-    .button.secondary {
+    .button.secondary, .button-link.secondary {
       background: #28354c;
       color: var(--text);
     }
@@ -223,7 +228,7 @@
       color: #062317;
     }
 
-    .button:active {
+    .button:active, .button-link:active {
       transform: scale(.99);
     }
 
@@ -466,8 +471,48 @@
     <section class="tab-panel" id="panel-report" role="tabpanel" aria-labelledby="tab-report">
       <div class="card form-grid">
         <div>
-          <h2>Rascunho de relato para B.O.</h2>
-          <p class="notice">Preencha apenas o que souber. Confira e corrija o texto antes de enviar à autoridade competente.</p>
+          <h2>Delegacia Eletrônica por Estado</h2>
+          <p class="notice">Selecione onde você mora para acessar o portal oficial de registro de B.O. da Polícia Civil da sua região.</p>
+        </div>
+        <div class="field">
+          <label for="state-select">Selecione seu Estado (UF)</label>
+          <select id="state-select">
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AC - Acre</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AL - Alagoas</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AP - Amapá</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AM - Amazonas</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">BA - Bahia</option>
+            <option value="https://www.delegaciaeletronica.ce.gov.br/beo/">CE - Ceará</option>
+            <option value="https://delegaciaeletronica.pcdf.df.gov.br/">DF - Distrito Federal</option>
+            <option value="https://delegaciaonline.sesp.es.gov.br/">ES - Espírito Santo</option>
+            <option value="https://raivirtual.ssp.go.gov.br/">GO - Goiás</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MA - Maranhão</option>
+            <option value="https://portal.sesp.mt.gov.br/delegacia-web/">MT - Mato Grosso</option>
+            <option value="https://devir.pc.ms.gov.br/">MS - Mato Grosso do Sul</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MG - Minas Gerais</option>
+            <option value="https://delegaciavirtual.pa.gov.br/">PA - Pará</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">PB - Paraíba</option>
+            <option value="https://www.policiacivil.pr.gov.br/BO">PR - Paraná</option>
+            <option value="https://servicos.sds.pe.gov.br/delegacia/">PE - Pernambuco</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">PI - Piauí</option>
+            <option value="https://dedic.pcerj.rj.gov.br/">RJ - Rio de Janeiro</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RN - Rio Grande do Norte</option>
+            <option value="https://www.delegaciaonline.rs.gov.br/">RS - Rio Grande do Sul</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RO - Rondônia</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RR - Roraima</option>
+            <option value="https://delegaciavirtual.sc.gov.br/">SC - Santa Catarina</option>
+            <option value="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" selected>SP - São Paulo</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">SE - Sergipe</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">TO - Tocantins</option>
+          </select>
+        </div>
+        <a id="open-police-btn" href="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" target="_blank" rel="noopener noreferrer" class="button-link">Acessar Delegacia Eletrônica</a>
+      </div>
+
+      <div class="card form-grid">
+        <div>
+          <h2>Gerador de Relato para o B.O.</h2>
+          <p class="notice">Gere um texto organizado com antecedência para colar diretamente no formulário oficial da polícia.</p>
         </div>
 
         <div class="field">
@@ -522,7 +567,7 @@
           <textarea id="evidence" placeholder="Ex.: capturas de tela, comprovante, e-mail ou protocolo de atendimento."></textarea>
         </div>
 
-        <button class="button" id="generate-report">Gerar rascunho</button>
+        <button class="button" id="generate-report">Gerar rascunho do relato</button>
       </div>
 
       <div class="card form-grid" id="report-card" hidden>
@@ -565,290 +610,4 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 id="modal-title">Orientações</h2>
-        <button class="close-button" id="close-modal" aria-label="Fechar">×</button>
-      </div>
-      <ol class="steps" id="modal-steps"></ol>
-      <button class="button secondary" id="modal-done">Fechar orientações</button>
-    </div>
-  </div>
-
-  <script>
-    // Alterna as abas e mantém os estados acessíveis.
-    const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
-    const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
-
-    function activateTab(button) {
-      tabButtons.forEach((item) => {
-        const selected = item === button;
-        item.setAttribute("aria-selected", String(selected));
-        item.tabIndex = selected ? 0 : -1;
-      });
-
-      tabPanels.forEach((panel) => {
-        panel.classList.toggle("active", panel.id === button.getAttribute("aria-controls"));
-      });
-    }
-
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => activateTab(button));
-    });
-
-    // Conteúdo dos guias exibido com textContent para evitar interpretar texto como HTML.
-    const guideContent = {
-      extorsao: {
-        title: "Ameaça ou extorsão",
-        steps: [
-          "Não faça pagamentos sob pressão. Pagar não garante que as ameaças parem.",
-          "Preserve as mensagens, números, perfis, horários e dados de pagamento; não apague a conversa.",
-          "Evite discutir ou enviar mais imagens, documentos, códigos ou informações pessoais.",
-          "Peça apoio a alguém de confiança e procure a Polícia Civil para orientação e registro.",
-          "Se houver perigo físico imediato, procure um local seguro e acione os serviços de emergência."
-        ]
-      },
-      "novo-numero": {
-        title: "Golpe do novo número",
-        steps: [
-          "Não transfira dinheiro com base apenas em uma mensagem.",
-          "Ligue para o número que você já tinha salvo ou confirme pessoalmente com a pessoa.",
-          "Não use telefone ou link enviado pelo contato suspeito para fazer a confirmação.",
-          "Guarde capturas de tela e avise familiares que também possam receber o pedido."
-        ]
-      },
-      conta: {
-        title: "Código ou conta invadida",
-        steps: [
-          "Não compartilhe códigos recebidos por SMS, aplicativo ou e-mail, nem mesmo com alguém que diga ser do suporte.",
-          "Acesse o aplicativo ou site oficial digitando o endereço conhecido; não use links recebidos na mensagem.",
-          "Se perdeu o acesso, use o procedimento oficial de recuperação da plataforma.",
-          "Troque a senha comprometida, encerre sessões desconhecidas e ative autenticação em duas etapas."
-        ]
-      },
-      banco: {
-        title: "Falso banco ou suporte",
-        steps: [
-          "Não clique em links, não instale aplicativos a pedido do contato e não informe senhas ou códigos.",
-          "Encerre a conversa e consulte a situação diretamente no aplicativo oficial do banco.",
-          "Ligue para o número impresso no cartão ou publicado nos canais oficiais da instituição.",
-          "Se compartilhou dados ou autorizou uma operação, contate o banco imediatamente pelo canal oficial."
-        ]
-      },
-      pix: {
-        title: "Transferência ou Pix feito",
-        steps: [
-          "Entre em contato imediatamente com seu banco pelo aplicativo ou telefone oficial e informe a transação.",
-          "Pergunte sobre os procedimentos disponíveis para contestação ou tentativa de recuperação e anote o protocolo.",
-          "Guarde o comprovante, mensagens, dados do destinatário e horários.",
-          "Considere registrar ocorrência na Polícia Civil ou Delegacia Eletrônica do seu estado."
-        ]
-      }
-    };
-
-    const modal = document.getElementById("guide-modal");
-    const modalTitle = document.getElementById("modal-title");
-    const modalSteps = document.getElementById("modal-steps");
-
-    function closeGuide() {
-      modal.classList.remove("open");
-    }
-
-    document.querySelectorAll("[data-guide]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const guide = guideContent[button.dataset.guide];
-        if (!guide) return;
-
-        modalTitle.textContent = guide.title;
-        modalSteps.replaceChildren();
-
-        guide.steps.forEach((step) => {
-          const item = document.createElement("li");
-          item.textContent = step;
-          modalSteps.appendChild(item);
-        });
-
-        modal.classList.add("open");
-        document.getElementById("close-modal").focus();
-      });
-    });
-
-    document.getElementById("close-modal").addEventListener("click", closeGuide);
-    document.getElementById("modal-done").addEventListener("click", closeGuide);
-
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) closeGuide();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeGuide();
-    });
-
-    // Scanner por padrões simples: o resultado é uma indicação, não uma confirmação.
-    document.getElementById("analyze-button").addEventListener("click", () => {
-      const text = document.getElementById("message-input").value.trim().toLocaleLowerCase("pt-BR");
-      const result = document.getElementById("scanner-result");
-      const heading = document.getElementById("risk-heading");
-      const description = document.getElementById("risk-description");
-      const signals = document.getElementById("risk-signals");
-
-      if (!text) {
-        alert("Cole o texto da mensagem para analisar.");
-        document.getElementById("message-input").focus();
-        return;
-      }
-
-      const rules = [
-        { pattern: /urgente|imediatamente|agora mesmo|último aviso|bloqueio hoje|prazo acaba/, points: 2, message: "A mensagem cria urgência ou pressão para agir rapidamente." },
-        { pattern: /\bpix\b|transferência|transfira|boleto|depósito|pague|pagamento/, points: 2, message: "Há pedido ou menção a pagamento ou transferência." },
-        { pattern: /novo número|troquei de número|mudei de número|oi mãe|oi pai/, points: 3, message: "Há sinais comuns de tentativa de se passar por familiar." },
-        { pattern: /código|seis dígitos|6 dígitos|senha|token|autenticação/, points: 3, message: "A mensagem menciona códigos, senhas ou autenticação." },
-        { pattern: /clique|acesse o link|regularize|http:\/\/|https:\/\/|bit\.ly|tinyurl/, points: 2, message: "Há convite para acessar link ou fazer uma regularização." },
-        { pattern: /ameaça|vazar|delegacia|prisão|mandado|chantagem/, points: 3, message: "Há sinais de intimidação ou ameaça." }
-      ];
-
-      let score = 0;
-      const found = [];
-
-      rules.forEach((rule) => {
-        if (rule.pattern.test(text)) {
-          score += rule.points;
-          found.push(rule.message);
-        }
-      });
-
-      result.className = "card result show";
-
-      if (score >= 5) {
-        result.classList.add("risk-high");
-        heading.textContent = "🚨 Muitos sinais de risco";
-        description.textContent = "A mensagem contém vários padrões comuns em tentativas de golpe. Não faça pagamentos nem compartilhe dados antes de verificar por outro canal.";
-      } else if (score >= 2) {
-        result.classList.add("risk-medium");
-        heading.textContent = "⚠️ Atenção: há sinais suspeitos";
-        description.textContent = "Confira a identidade do remetente por um canal independente antes de agir.";
-      } else {
-        result.classList.add("risk-low");
-        heading.textContent = "🟢 Poucos sinais encontrados";
-        description.textContent = "Isso não prova que a mensagem seja segura. Mantenha cautela com links, pedidos de dinheiro e códigos.";
-      }
-
-      signals.replaceChildren();
-      if (found.length === 0) {
-        const item = document.createElement("li");
-        item.textContent = "A análise automática não encontrou os padrões configurados.";
-        signals.appendChild(item);
-      } else {
-        found.forEach((message) => {
-          const item = document.createElement("li");
-          item.textContent = message;
-          signals.appendChild(item);
-        });
-      }
-    });
-
-    // Monta um rascunho neutro com os campos informados pelo usuário.
-    document.getElementById("generate-report").addEventListener("click", () => {
-      const read = (id, fallback) => {
-        const value = document.getElementById(id).value.trim();
-        return value || fallback;
-      };
-
-      const type = read("occurrence-type", "Não informado");
-      const date = read("event-date", "Não informada");
-      const time = read("event-time", "Não informado");
-      const phone = read("contact-number", "Não informado");
-      const pix = read("pix-key", "Não informada");
-      const holder = read("account-holder", "Não informado");
-      const amount = read("amount", "Não informado");
-      const facts = read("facts", "Não informado.");
-      const evidence = read("evidence", "Não informado.");
-
-      const report = [
-        "RASCUNHO DE RELATO PARA REVISÃO",
-        "",
-        "Tipo de ocorrência: " + type,
-        "Data aproximada: " + date,
-        "Horário aproximado: " + time,
-        "",
-        "Contato ou perfil usado: " + phone,
-        "Chave Pix ou conta informada: " + pix,
-        "Nome exibido do destinatário: " + holder,
-        "Valor solicitado ou transferido: " + amount,
-        "",
-        "Descrição dos fatos:",
-        facts,
-        "",
-        "Provas preservadas:",
-        evidence,
-        "",
-        "Observação: revisar os dados e corrigir qualquer informação antes de usar este texto em um registro oficial."
-      ].join("\n");
-
-      document.getElementById("report-output").textContent = report;
-      document.getElementById("report-card").hidden = false;
-    });
-
-    // Copia o rascunho; oferece seleção manual se a API de clipboard não estiver disponível.
-    document.getElementById("copy-report").addEventListener("click", async () => {
-      const text = document.getElementById("report-output").textContent;
-
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(text);
-        } else {
-          throw new Error("Clipboard indisponível");
-        }
-        alert("Rascunho copiado.");
-      } catch {
-        const range = document.createRange();
-        range.selectNodeContents(document.getElementById("report-output"));
-        const selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        alert("Não foi possível copiar automaticamente. O texto foi selecionado; use a opção Copiar do seu dispositivo.");
-      }
-    });
-
-    // Salva o estado do checklist apenas neste navegador.
-    const checklistInputs = Array.from(document.querySelectorAll("[data-check]"));
-    const storageKey = "sos-protecao-checklist-v1";
-
-    function updateChecklist() {
-      const completed = checklistInputs.filter((input) => input.checked).length;
-      const total = checklistInputs.length;
-      const percent = total ? (completed / total) * 100 : 0;
-
-      document.getElementById("progress-bar").style.width = percent + "%";
-      document.getElementById("progress-text").textContent = completed + " de " + total + " concluídas";
-
-      const state = {};
-      checklistInputs.forEach((input) => {
-        state[input.dataset.check] = input.checked;
-      });
-
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(state));
-      } catch {
-        // O app continua funcionando mesmo se o navegador bloquear armazenamento local.
-      }
-    }
-
-    try {
-      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      checklistInputs.forEach((input) => {
-        input.checked = saved[input.dataset.check] === true;
-      });
-    } catch {
-      // Ignora dados locais inválidos e mantém as caixas desmarcadas.
-    }
-
-    checklistInputs.forEach((input) => input.addEventListener("change", updateChecklist));
-    updateChecklist();
-
-    document.getElementById("reset-checklist").addEventListener("click", () => {
-      checklistInputs.forEach((input) => {
-        input.checked = false;
-      });
-      updateChecklist();
-    });
-  </script>
-</body>
-</html>
+        <button class="close
