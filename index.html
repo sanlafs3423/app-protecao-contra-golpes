@@ -13,7 +13,7 @@
       --panel-soft: #101827;
       --border: #28354c;
       --text: #f3f6fc;
-      --muted: #a6b0c2;
+      --muted: #94a3b8;
       --blue: #2563eb;
       --blue-hover: #1d4ed8;
       --green: #10b981;
@@ -23,240 +23,184 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       min-height: 100vh;
-      padding: 16px 12px 40px;
+      padding: 14px 10px 40px;
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.5;
     }
 
     button, input, select, textarea, a { font: inherit; }
     button, a, select, input[type="checkbox"] { touch-action: manipulation; }
 
-    .app {
-      width: min(100%, 680px);
-      margin: 0 auto;
-    }
+    .app { width: min(100%, 640px); margin: 0 auto; }
 
-    header {
-      text-align: center;
-      padding: 10px 4px 18px;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 4.5vw, 1.85rem);
-      font-weight: 800;
-    }
-
-    header p {
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: .9rem;
-    }
+    header { text-align: center; margin-bottom: 14px; }
+    header h1 { font-size: 1.5rem; font-weight: 800; }
+    header p { color: var(--muted); font-size: .85rem; }
 
     .tabs {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 5px;
-      padding: 5px;
-      margin-bottom: 16px;
+      padding: 4px;
+      margin-bottom: 14px;
       background: var(--panel-soft);
       border: 1px solid var(--border);
       border-radius: 12px;
     }
 
     .tab-btn {
-      min-height: 46px;
-      padding: 6px 2px;
+      min-height: 44px;
+      padding: 8px 2px;
       border: 0;
-      border-radius: 9px;
+      border-radius: 8px;
       background: transparent;
       color: var(--muted);
       font-size: .8rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background .2s, color .2s;
     }
 
-    .tab-btn[aria-selected="true"] {
-      color: #fff;
-      background: var(--blue);
-    }
+    .tab-btn.active { color: #fff; background: var(--blue); }
 
-    .tab-panel {
-      display: none;
-      flex-direction: column;
-      gap: 14px;
-    }
-
+    .tab-panel { display: none; flex-direction: column; gap: 12px; }
     .tab-panel.active { display: flex; }
 
     .card {
-      padding: 16px;
+      padding: 14px;
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       background: var(--panel);
     }
 
-    .card h2 {
-      font-size: 1.08rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
+    .card h2 { font-size: 1.05rem; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
     .notice { font-size: .82rem; color: var(--muted); }
 
-    .badge-auto {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 6px;
-      background: rgba(16, 185, 129, .2);
-      color: var(--green);
-      font-size: .75rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
     .alert {
-      border-color: rgba(239, 68, 68, .5);
+      border-left: 4px solid var(--red);
       background: rgba(239, 68, 68, .12);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: .85rem;
     }
-
-    .alert strong { color: #fca5a5; }
-
-    .guide-list { display: grid; gap: 8px; margin-top: 10px; }
 
     .guide-btn {
       width: 100%;
-      min-height: 54px;
-      padding: 12px 14px;
+      min-height: 52px;
+      padding: 10px 12px;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
       text-align: left;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 9px;
       background: #0f172a;
       color: var(--text);
       cursor: pointer;
+      margin-top: 8px;
     }
 
     .guide-btn:hover { border-color: var(--blue); }
-    .guide-btn small { color: var(--muted); display: block; font-size: .8rem; }
+    .guide-btn small { color: var(--muted); display: block; font-size: .78rem; }
 
-    .field {
-      display: grid;
-      gap: 6px;
-      margin-top: 10px;
-    }
-
-    label {
-      color: #cbd5e1;
-      font-size: .85rem;
-      font-weight: 600;
-    }
+    .field { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+    label { color: #cbd5e1; font-size: .82rem; font-weight: 600; }
 
     input, select, textarea {
       width: 100%;
-      min-height: 44px;
-      padding: 10px 12px;
+      padding: 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: #090f1d;
       color: var(--text);
+      font-size: .9rem;
     }
 
-    textarea { min-height: 100px; resize: vertical; }
+    textarea { min-height: 90px; resize: vertical; }
 
     .btn, .police-link {
       width: 100%;
-      min-height: 48px;
-      padding: 12px 16px;
+      min-height: 46px;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       border: 0;
-      border-radius: 10px;
+      border-radius: 8px;
       background: var(--blue);
       color: #fff;
       font-weight: 700;
-      font-size: .92rem;
+      font-size: .9rem;
       cursor: pointer;
       text-decoration: none;
       text-align: center;
-      transition: background .2s, transform .1s;
     }
 
     .btn:hover, .police-link:hover { background: var(--blue-hover); }
-    .btn:active, .police-link:active { transform: scale(.99); }
-    .btn.success { background: var(--green); color: #042f2e; }
+    .btn.success { background: var(--green); color: #022c22; }
     .btn.success:hover { background: var(--green-hover); }
-    .btn.secondary { background: #334155; color: #fff; }
+    .btn.secondary { background: #334155; }
 
-    .police-highlight {
+    .police-box {
       border: 2px solid var(--blue);
       background: rgba(37, 99, 235, .1);
-      border-radius: 12px;
-      padding: 16px;
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .output-box {
-      min-height: 120px;
-      max-height: 320px;
+    .output-area {
+      min-height: 110px;
+      max-height: 250px;
       overflow-y: auto;
-      padding: 12px;
+      padding: 10px;
       white-space: pre-wrap;
       word-break: break-word;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: #090f1d;
-      font-size: .88rem;
+      font-size: .85rem;
     }
 
-    .evidence-preview-grid {
+    .preview-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-      gap: 8px;
-      margin-top: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 6px;
+      margin-top: 8px;
     }
 
-    .evidence-thumb {
+    .preview-thumb {
       width: 100%;
-      height: 80px;
+      height: 70px;
       object-fit: cover;
       border-radius: 6px;
       border: 1px solid var(--border);
     }
 
-    .checklist { display: grid; gap: 8px; }
     .check-item {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: flex-start;
-      padding: 12px;
+      padding: 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: #0f172a;
       cursor: pointer;
+      margin-bottom: 6px;
     }
 
     .check-item input {
-      width: 20px;
-      height: 20px;
-      min-width: 20px;
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
       margin-top: 2px;
       accent-color: var(--green);
     }
 
-    .progress-bar-bg {
+    .progress-bar {
       height: 8px;
       border-radius: 99px;
       background: #090f1d;
@@ -265,87 +209,46 @@
       margin: 8px 0;
     }
 
-    .progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--green);
-      transition: width .3s;
-    }
+    .progress-fill { height: 100%; width: 0%; background: var(--green); transition: width .3s; }
 
     .modal {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,.75);
-      z-index: 99;
+      z-index: 100;
       align-items: flex-end;
       justify-content: center;
       padding: 12px;
     }
 
     .modal.open { display: flex; }
-
     .modal-box {
-      width: min(100%, 550px);
+      width: min(100%, 520px);
       max-height: 80vh;
       overflow-y: auto;
-      padding: 20px;
+      padding: 16px;
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 14px;
     }
 
-    .modal-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
+    .modal-box ol { padding-left: 20px; font-size: .88rem; margin: 12px 0; }
+    .modal-box li { margin-bottom: 8px; }
 
-    .close-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 0;
-      background: #334155;
-      color: #fff;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    .modal-box ol { padding-left: 20px; }
-    .modal-box li { margin-bottom: 10px; }
-
-    footer {
-      text-align: center;
-      margin-top: 24px;
-      font-size: .78rem;
-      color: var(--muted);
-    }
-
-    /* Formatação para impressão em PDF / Dossiê */
     @media print {
       body { background: #fff; color: #000; padding: 0; }
-      .app { width: 100%; max-width: 100%; }
-      header, .tabs, .police-highlight, #btn-gen-report, #btn-copy-report, #btn-print-dossier, .field input[type="file"], footer, #tab-panel-guides, #tab-panel-scanner, #tab-panel-checklist {
+      header, .tabs, .police-box, #btn-generate, #btn-copy, #btn-print, #file-prints, .notice, #tab-guias, #tab-scanner, #tab-check {
         display: none !important;
       }
-      #tab-panel-report, .card, #report-output-card {
+      #tab-bo, .card, #report-result {
         display: block !important;
         background: #fff !important;
         border: 1px solid #ccc !important;
         color: #000 !important;
-        page-break-inside: avoid;
       }
-      .output-box {
-        background: #fff !important;
-        color: #000 !important;
-        border: 1px solid #000 !important;
-      }
-      .evidence-thumb {
-        height: 180px !important;
-        border: 1px solid #999 !important;
-      }
+      .output-area { background: #fff !important; color: #000 !important; border: 1px solid #000 !important; }
+      .preview-thumb { height: 160px !important; border: 1px solid #666 !important; }
     }
   </style>
 </head>
@@ -356,83 +259,68 @@
       <p>Apoio imediato, análise e dossiê para B.O. oficial</p>
     </header>
 
-    <nav class="tabs" role="tablist">
-      <button class="tab-btn" id="tab-btn-guides" role="tab" aria-selected="true" aria-controls="tab-panel-guides">Guias</button>
-      <button class="tab-btn" id="tab-btn-scanner" role="tab" aria-selected="false" aria-controls="tab-panel-scanner">🔍 Scanner</button>
-      <button class="tab-btn" id="tab-btn-report" role="tab" aria-selected="false" aria-controls="tab-panel-report">📋 B.O.</button>
-      <button class="tab-btn" id="tab-btn-checklist" role="tab" aria-selected="false" aria-controls="tab-panel-checklist">✅ Checklist</button>
+    <nav class="tabs">
+      <button class="tab-btn active" id="btn-t-guias" onclick="showTab('tab-guias', this)">Guias</button>
+      <button class="tab-btn" id="btn-t-scanner" onclick="showTab('tab-scanner', this)">🔍 Scanner</button>
+      <button class="tab-btn" id="btn-t-bo" onclick="showTab('tab-bo', this)">📋 B.O.</button>
+      <button class="tab-btn" id="btn-t-check" onclick="showTab('tab-check', this)">✅ Checklist</button>
     </nav>
 
     <!-- ABA 1: GUIAS -->
-    <section class="tab-panel active" id="tab-panel-guides" role="tabpanel">
-      <div class="card alert">
-        <strong>⚠️ Regras imediatas de emergência:</strong>
-        <p>1. Não faça Pix nem transferências sob ameaça.<br>2. Não apague conversas nem áudios.<br>3. Toque na situação abaixo para instruções e auto-preenchimento do B.O.</p>
+    <section class="tab-panel active" id="tab-guias">
+      <div class="alert">
+        <strong>⚠️ Ação imediata:</strong> Não transfira dinheiro sob chantagem, guarde todas as mensagens e tire capturas de tela com horários legíveis.
       </div>
-
       <div class="card">
-        <h2>Selecione o que está acontecendo:</h2>
-        <div class="guide-list">
-          <button class="guide-btn" data-guide="extorsao">
-            <span>🚨</span>
-            <div><strong>Ameaça ou Extorsão</strong><small>Chantagem íntima, falso faccionado ou ameaça</small></div>
-          </button>
-          <button class="guide-btn" data-guide="novo-numero">
-            <span>👤</span>
-            <div><strong>Golpe do Novo Número</strong><small>"Oi mãe/pai, troquei de número, me faz um pix"</small></div>
-          </button>
-          <button class="guide-btn" data-guide="conta">
-            <span>📲</span>
-            <div><strong>WhatsApp ou Conta Clonada</strong><small>Código SMS informado ou perda do acesso ao app</small></div>
-          </button>
-          <button class="guide-btn" data-guide="banco">
-            <span>💳</span>
-            <div><strong>Falso Suporte Bancário</strong><small>Ligação de falsa compra suspensa ou cartão clonado</small></div>
-          </button>
-          <button class="guide-btn" data-guide="pix">
-            <span>💸</span>
-            <div><strong>Transferência Já Realizada</strong><small>Passos para acionar o MED bancário com urgência</small></div>
-          </button>
-        </div>
+        <h2>Selecione o seu caso:</h2>
+        <button class="guide-btn" onclick="openGuideModal('extorsao')">
+          <span>🚨</span>
+          <div><strong>Ameaça ou Extorsão</strong><small>Chantagem de vazamento de fotos ou ameaças</small></div>
+        </button>
+        <button class="guide-btn" onclick="openGuideModal('novo-num')">
+          <span>👤</span>
+          <div><strong>Golpe do Novo Número</strong><small>Alguém pedindo dinheiro em nome de familiar</small></div>
+        </button>
+        <button class="guide-btn" onclick="openGuideModal('clonado')">
+          <span>📲</span>
+          <div><strong>WhatsApp / Conta Invadida</strong><small>Código SMS fornecido ou perda total do acesso</small></div>
+        </button>
+        <button class="guide-btn" onclick="openGuideModal('falso-banco')">
+          <span>💳</span>
+          <div><strong>Falsa Central Bancária</strong><small>Ligação de confirmação de compra suspeita</small></div>
+        </button>
+        <button class="guide-btn" onclick="openGuideModal('pix-feito')">
+          <span>💸</span>
+          <div><strong>Transferência Já Realizada</strong><small>Passos para acionar o MED bancário com urgência</small></div>
+        </button>
       </div>
     </section>
 
     <!-- ABA 2: SCANNER -->
-    <section class="tab-panel" id="tab-panel-scanner" role="tabpanel">
+    <section class="tab-panel" id="tab-scanner">
       <div class="card">
-        <h2>🔍 Analisador Inteligente de Mensagem</h2>
-        <p class="notice">Cole a mensagem recebida. O sistema identificará sinais de risco e extrairá valores, telefones e contas automaticamente para o B.O.</p>
+        <h2>🔍 Analisador de Mensagem</h2>
+        <p class="notice">Cole a mensagem recebida para verificar riscos e extrair dados automaticamente para o B.O.</p>
         <div class="field">
-          <label for="scanner-input">Texto da mensagem:</label>
-          <textarea id="scanner-input" placeholder="Ex.: Oi mãe, quebrou meu celular, anota esse número provisório (11) 98765-4321. Preciso que você pague uma conta urgente de R$ 580,00 na chave pix teste@pix.com..."></textarea>
+          <textarea id="scan-input" placeholder="Cole a mensagem aqui. Ex.: Oi pai, anota meu número novo (11) 98765-4321. Preciso que pague um Pix de R$ 650,00 na chave teste@email.com..."></textarea>
         </div>
-        <button class="btn" id="btn-scan" style="margin-top: 12px;" type="button">Analisar e Extrair Dados</button>
-      </div>
+        <button class="btn" style="margin-top:8px;" onclick="analyzeMessage()">Analisar e Extrair Dados</button>
 
-      <div class="card" id="scanner-result" style="display: none;">
-        <h2 id="scanner-title"></h2>
-        <p id="scanner-desc" class="notice"></p>
-        <ul id="scanner-list" style="margin: 10px 0 12px 20px; font-size: .9rem;"></ul>
-
-        <div id="scanner-extracted-box" style="display:none; padding:10px; background:#090f1d; border-radius:8px; border:1px solid var(--border); margin-bottom:12px; font-size:.85rem;">
-          <strong style="color:var(--green);">⚡ Dados encontrados no texto:</strong>
-          <div id="scanner-extracted-details" style="margin-top:6px; color:#cbd5e1;"></div>
+        <div id="scan-feedback-box" style="display:none; margin-top:12px; padding:10px; background:#090f1d; border-radius:8px; border:1px solid var(--border);">
+          <div id="scan-feedback"></div>
+          <button class="btn success" id="btn-transfer-bo" style="margin-top:10px; display:none;" onclick="pushToBO()">📋 Transferir Dados para a Aba B.O.</button>
         </div>
-
-        <button class="btn success" id="btn-transfer-to-bo" type="button">📋 Preencher B.O. com estes dados</button>
       </div>
     </section>
 
     <!-- ABA 3: B.O. -->
-    <section class="tab-panel" id="tab-panel-report" role="tabpanel">
-      <!-- BLOCO DELEGACIA ELETRÔNICA -->
-      <div class="card police-highlight">
+    <section class="tab-panel" id="tab-bo">
+      <div class="card police-box">
         <h2>🚔 1. Acessar Delegacia Eletrônica Oficial</h2>
-        <p class="notice">Selecione seu Estado para abrir diretamente o portal seguro da Polícia Civil:</p>
-        
+        <p class="notice">Selecione seu Estado para abrir a Delegacia Oficial em nova aba:</p>
         <div class="field">
-          <label for="state-select">Estado (UF):</label>
-          <select id="state-select">
+          <label for="uf-selector">Seu Estado (UF):</label>
+          <select id="uf-selector" onchange="syncPoliceLink()">
             <option value="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" selected>SP - São Paulo</option>
             <option value="https://dedic.pcerj.rj.gov.br/">RJ - Rio de Janeiro</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MG - Minas Gerais</option>
@@ -462,91 +350,182 @@
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RR - Roraima</option>
           </select>
         </div>
-
-        <a class="police-link" id="police-link" href="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" target="_blank" rel="noopener noreferrer">
-          🚨 Abrir Delegacia Eletrônica Oficial
+        <a id="btn-police-direct" class="police-link" href="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" target="_blank" rel="noopener noreferrer">
+          🚨 ABRIR DELEGACIA ELETRÔNICA OFICIAL
         </a>
       </div>
 
-      <!-- FORMULÁRIO DO B.O. -->
       <div class="card">
-        <div id="auto-badge-target"></div>
-        <h2>📝 2. Dados e Relato Estruturado</h2>
-        <p class="notice">Estes campos são preenchidos manualmente ou importados do Scanner:</p>
-
+        <h2>📝 2. Relato Estruturado dos Fatos</h2>
         <div class="field">
-          <label for="field-crime">Tipo de Ocorrência:</label>
-          <select id="field-crime">
+          <label for="bo-nature">Tipo de ocorrência:</label>
+          <select id="bo-nature">
             <option value="Golpe do novo número / Falso parente">Golpe do novo número / Falso parente</option>
-            <option value="Fraude bancária / Falsa central de atendimento">Fraude bancária / Falsa central de atendimento</option>
-            <option value="Golpe via Pix / Compra fraudulenta">Golpe via Pix / Compra fraudulenta</option>
-            <option value="Extorsão / Chantagem / Falso faccionado">Extorsão / Chantagem / Falso faccionado</option>
+            <option value="Falsa central ou suporte bancário">Falsa central ou suporte bancário</option>
+            <option value="Fraude envolvendo Pix / Transferência">Fraude envolvendo Pix / Transferência</option>
+            <option value="Tentativa de extorsão ou chantagem">Tentativa de extorsão ou chantagem</option>
             <option value="Invasão de conta / Perda de acesso">Invasão de conta / Perda de acesso</option>
             <option value="Outro tipo de golpe">Outro tipo de golpe</option>
           </select>
         </div>
+        <div class="field"><label for="bo-date">Data do ocorrido:</label><input type="date" id="bo-date"></div>
+        <div class="field"><label for="bo-contact">Contato do autor (telefone ou link):</label><input type="text" id="bo-contact" placeholder="Ex.: (11) 98765-4321"></div>
+        <div class="field"><label for="bo-pix">Chave Pix ou conta do recebedor:</label><input type="text" id="bo-pix" placeholder="Chave Pix ou dados bancários informados"></div>
+        <div class="field"><label for="bo-val">Valor envolvido:</label><input type="text" id="bo-val" placeholder="Ex.: R$ 650,00"></div>
+        <div class="field"><label for="bo-facts">Histórico dos acontecimentos:</label><textarea id="bo-facts" placeholder="Descreva os fatos em ordem cronológica..."></textarea></div>
 
-        <div class="field">
-          <label for="field-date">Data do ocorrido:</label>
-          <input type="date" id="field-date">
+        <div class="field" style="margin-top:12px;">
+          <label for="file-prints">📸 Anexar Capturas de Tela (Local):</label>
+          <input type="file" id="file-prints" accept="image/*" multiple onchange="handleEvidence(this)">
+          <div class="preview-grid" id="prints-preview"></div>
         </div>
 
-        <div class="field">
-          <label for="field-contact">Contato do autor (telefone, perfil ou link):</label>
-          <input type="text" id="field-contact" placeholder="Ex.: (11) 98765-4321">
-        </div>
+        <button class="btn secondary" id="btn-generate" style="margin-top:12px;" onclick="buildReport()">Gerar Relato do B.O.</button>
 
-        <div class="field">
-          <label for="field-pix">Chave Pix ou conta do recebedor (se houver):</label>
-          <input type="text" id="field-pix" placeholder="Chave Pix ou dados bancários informados">
-        </div>
-
-        <div class="field">
-          <label for="field-amount">Valor envolvido:</label>
-          <input type="text" id="field-amount" placeholder="Ex.: R$ 580,00">
-        </div>
-
-        <div class="field">
-          <label for="field-facts">Histórico e descrição dos fatos:</label>
-          <textarea id="field-facts" placeholder="Descreva os fatos em ordem cronológica..."></textarea>
-        </div>
-
-        <!-- UPLOAD DE PRINTS DAS CONVERSAS -->
-        <div class="field" style="margin-top: 14px;">
-          <label for="field-evidence">📸 Anexar Prints das Conversas / Comprovantes (Local):</label>
-          <input type="file" id="field-evidence" accept="image/*" multiple>
-          <p class="notice">As imagens ficam guardadas apenas na memória do seu celular para inclusão no dossiê/impressão.</p>
-          <div class="evidence-preview-grid" id="evidence-preview"></div>
-        </div>
-
-        <button class="btn secondary" id="btn-gen-report" style="margin-top: 14px;" type="button">Gerar Rascunho do Relato</button>
-      </div>
-
-      <div class="card" id="report-output-card" style="display: none;">
-        <h2>📋 Relato Pronto</h2>
-        <div class="output-box" id="report-text"></div>
-        
-        <div style="display: grid; gap: 8px; margin-top: 12px;">
-          <button class="btn success" id="btn-copy-report" type="button">Copiar Texto para Colar no B.O.</button>
-          <button class="btn secondary" id="btn-print-dossier" type="button">🖨️ Salvar Dossiê Completo (PDF com Prints)</button>
+        <div id="report-result" style="display:none; margin-top:12px;">
+          <div class="output-area" id="report-output"></div>
+          <div style="display:grid; gap:8px; margin-top:10px;">
+            <button class="btn success" id="btn-copy" onclick="copyReportText()">Copiar Texto para Colar no B.O.</button>
+            <button class="btn secondary" id="btn-print" onclick="window.print()">🖨️ Salvar Dossiê Completo em PDF</button>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ABA 4: CHECKLIST -->
-    <section class="tab-panel" id="tab-panel-checklist" role="tabpanel">
+    <section class="tab-panel" id="tab-check">
       <div class="card">
         <h2>✅ Medidas de Contenção</h2>
-        <p class="notice">Seu progresso é gravado apenas neste aparelho.</p>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="checklist-progress"></div>
+        <p class="notice">O progresso é salvo automaticamente neste aparelho.</p>
+        <div class="progress-bar"><div class="progress-fill" id="chk-fill"></div></div>
+        <p class="notice" id="chk-count">0 de 5 concluídas</p>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+          <label class="check-item"><input type="checkbox" data-c="1" onchange="syncChecklist()"><span><strong>Tirar prints das conversas</strong><br><small class="notice">Salve números, fotos e horários legíveis.</small></span></label>
+          <label class="check-item"><input type="checkbox" data-c="2" onchange="syncChecklist()"><span><strong>Cessar qualquer pagamento</strong><br><small class="notice">Não transfira valores sob chantagem ou promessas.</small></span></label>
+          <label class="check-item"><input type="checkbox" data-c="3" onchange="syncChecklist()"><span><strong>Acionar o Banco (MED)</strong><br><small class="notice">Se enviou Pix, solicite o bloqueio cautelar imediato.</small></span></label>
+          <label class="check-item"><input type="checkbox" data-c="4" onchange="syncChecklist()"><span><strong>Registrar Boletim de Ocorrência</strong><br><small class="notice">Utilize a aba B.O. para abrir a delegacia oficial.</small></span></label>
+          <label class="check-item"><input type="checkbox" data-c="5" onchange="syncChecklist()"><span><strong>Bloquear e denunciar o contato</strong><br><small class="notice">Faça o bloqueio no aplicativo após salvar as provas.</small></span></label>
         </div>
-        <p class="notice" id="checklist-counter">0 de 5 concluídas</p>
       </div>
+    </section>
+  </div>
 
-      <div class="card checklist">
-        <label class="check-item"><input type="checkbox" data-chk="1"><span><strong>Tirar prints das conversas</strong><br><small class="notice">Salve comprovantes, números e horários antes de bloquear qualquer contato.</small></span></label>
-        <label class="check-item"><input type="checkbox" data-chk="2"><span><strong>Cessar qualquer pagamento</strong><br><small class="notice">Não transfira nada sob pressão ou ameaça de vazamento.</small></span></label>
-        <label class="check-item"><input type="checkbox" data-chk="3"><span><strong>Avisar seu banco imediatamente</strong><br><small class="notice">Se houve Pix, solicite a abertura urgente do MED (Mecanismo Especial de Devolução).</small></span></label>
-        <label class="check-item"><input type="checkbox" data-chk="4"><span><strong>Registrar Boletim de Ocorrência</strong><br><small class="notice">Use o link na aba B.O. para abrir a Delegacia Oficial do seu estado.</small></span></label>
-        <label class="check-item"><input type
+  <!-- MODAL -->
+  <div class="modal" id="info-modal">
+    <div class="modal-box">
+      <h2 id="modal-heading" style="font-size:1.1rem; margin-bottom:6px;"></h2>
+      <ol id="modal-points"></ol>
+      <button class="btn secondary" onclick="closeGuideModal()">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // 1. Alternador de Abas Seguro
+    function showTab(panelId, btnElement) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(panelId).classList.add('active');
+      btnElement.classList.add('active');
+    }
+
+    // 2. Sincronização do Link da Delegacia
+    function syncPoliceLink() {
+      const uf = document.getElementById('uf-selector');
+      const btn = document.getElementById('btn-police-direct');
+      btn.href = uf.value;
+    }
+
+    // 3. Guias + Automação de Categoria no B.O.
+    const guideDetails = {
+      'extorsao': {
+        title: '🚨 Extorsão ou Ameaça',
+        crimeIndex: 'Tentativa de extorsão ou chantagem',
+        items: [
+          'NÃO PAGUE: Pagar não encerra chantagens; estimula novas cobranças.',
+          'NÃO APAGUE MENSAGENS: Elas são provas primordiais da ocorrência.',
+          'TIRE PRINTS: Guarde número de telefone, horários e dados de conta.',
+          'CORTE O CONTATO: Não rebata ameaças nem tente negociar.',
+          'REGISTRE O B.O.: Acesse a aba B.O. para gerar seu histórico oficial.'
+        ]
+      },
+      'novo-num': {
+        title: '👤 Golpe do Novo Número',
+        crimeIndex: 'Golpe do novo número / Falso parente',
+        items: [
+          'Ligue para o número antigo do familiar para tirar a dúvida por voz.',
+          'Exija chamada de vídeo antes de qualquer consideração financeira.',
+          'Nunca envie dinheiro para conta de titular desconhecido.',
+          'Avise outros membros da família sobre a tentativa de golpe.'
+        ]
+      },
+      'clonado': {
+        title: '📲 WhatsApp / Conta Invadida',
+        crimeIndex: 'Invasão de conta / Perda de acesso',
+        items: [
+          'Nunca forneça senhas ou o código de 6 dígitos que chega por SMS.',
+          'Envie e-mail urgente para support@whatsapp.com: "Conta desativada: +55 (DDD) (número)".',
+          'Avise conhecidos pelas redes para desconsiderarem pedidos de dinheiro.',
+          'Ative a verificação em duas etapas assim que recuperar o app.'
+        ]
+      },
+      'falso-banco': {
+        title: '💳 Falsa Central Bancária',
+        crimeIndex: 'Falsa central ou suporte bancário',
+        items: [
+          'Bancos nunca pedem transferências ou Pix para anular operações.',
+          'Desligue imediatamente a chamada.',
+          'Use apenas o telefone impresso no verso do cartão magnético.',
+          'Nunca instale aplicativos de controle remoto (TeamViewer, AnyDesk).'
+        ]
+      },
+      'pix-feito': {
+        title: '💸 Pix Já Realizado',
+        crimeIndex: 'Fraude envolvendo Pix / Transferência',
+        items: [
+          'Ligue imediatamente para o SAC do seu banco.',
+          'Exija a abertura imediata do MED (Mecanismo Especial de Devolução).',
+          'Anote todos os protocolos do atendimento telefônico.',
+          'Abra a aba B.O. para gerar o relato e anexar ao chamado do banco.'
+        ]
+      }
+    };
+
+    function openGuideModal(key) {
+      const g = guideDetails[key];
+      if (!g) return;
+      document.getElementById('modal-heading').textContent = g.title;
+      const list = document.getElementById('modal-points');
+      list.innerHTML = '';
+      g.items.forEach(pt => {
+        const li = document.createElement('li');
+        li.textContent = pt;
+        list.appendChild(li);
+      });
+      // Pré-seleciona a categoria no formulário do B.O.
+      document.getElementById('bo-nature').value = g.crimeIndex;
+      document.getElementById('info-modal').classList.add('open');
+    }
+
+    function closeGuideModal() {
+      document.getElementById('info-modal').classList.remove('open');
+    }
+
+    // 4. Scanner com Extração Automatizada
+    let scanMemory = { phone: '', val: '', pix: '', raw: '' };
+
+    function analyzeMessage() {
+      const text = document.getElementById('scan-input').value.trim();
+      if (!text) { alert('Cole a mensagem recebida para que possamos analisar.'); return; }
+
+      const lower = text.toLowerCase();
+      let alerts = [];
+
+      if (/urgente|agora|imediatamente|hoje|bloqueio|cancelar|aviso/.test(lower)) alerts.push('Indução de urgência e pressão psicológica');
+      if (/pix|transferência|depósito|boleto|pague|chave/.test(lower)) alerts.push('Solicitação de envio de valores');
+      if (/novo número|troquei de número|mãe|pai|filho/.test(lower)) alerts.push('Padrão característico de falso familiar');
+      if (/código|sms|autenticação|token|senha/.test(lower)) alerts.push('Pedido indevido de senhas ou códigos');
+      if (/link|clique|http|bit\.ly/.test(lower)) alerts.push('Links e endereços externos suspeitos');
+
+      const phoneMatch = text.match(/\(?\d{2}\)?\s?9?\d{4}[-\s]?\d{4}/);
+      const valMatch = text.match(/(?:r\$\s?|reais\s?)(\d+[.,]?\d*)/i) || text.match(/(\d+[.,]\d{2})/);
+      const pixMatch = text.match(/[\w.-]+@[\w.-]+\.\w+/) || text.match(/\d{2}\.\d{3
