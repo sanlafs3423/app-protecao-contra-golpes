@@ -17,27 +17,24 @@
       --blue: #2563eb;
       --blue-hover: #1d4ed8;
       --green: #10b981;
+      --green-hover: #059669;
       --red: #ef4444;
       --amber: #f59e0b;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
-      margin: 0;
-      padding: 16px 12px 36px;
+      padding: 16px 12px 40px;
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.5;
     }
 
-    button, input, select, textarea { font: inherit; }
-
-    button, a, select, input[type="checkbox"] {
-      touch-action: manipulation;
-    }
+    button, input, select, textarea, a { font: inherit; }
+    button, a, select, input[type="checkbox"] { touch-action: manipulation; }
 
     .app {
       width: min(100%, 680px);
@@ -45,35 +42,35 @@
     }
 
     header {
-      padding: 10px 4px 18px;
       text-align: center;
+      padding: 10px 4px 18px;
     }
 
     header h1 {
-      margin: 0;
-      font-size: clamp(1.45rem, 5vw, 1.9rem);
+      font-size: clamp(1.4rem, 4.5vw, 1.85rem);
+      font-weight: 800;
     }
 
     header p {
-      margin: 6px 0 0;
+      margin-top: 6px;
       color: var(--muted);
-      font-size: .92rem;
+      font-size: .9rem;
     }
 
     .tabs {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 5px;
       padding: 5px;
       margin-bottom: 16px;
+      background: var(--panel-soft);
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: var(--panel-soft);
     }
 
     .tab-btn {
       min-height: 46px;
-      padding: 7px 3px;
+      padding: 6px 2px;
       border: 0;
       border-radius: 9px;
       background: transparent;
@@ -81,11 +78,12 @@
       font-size: .8rem;
       font-weight: 700;
       cursor: pointer;
+      transition: background .2s, color .2s;
     }
 
     .tab-btn[aria-selected="true"] {
-      background: var(--blue);
       color: #fff;
+      background: var(--blue);
     }
 
     .tab-panel {
@@ -104,668 +102,451 @@
     }
 
     .card h2 {
-      margin: 0 0 9px;
       font-size: 1.08rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .notice {
-      color: var(--muted);
-      font-size: .84rem;
+    .notice { font-size: .82rem; color: var(--muted); }
+
+    .badge-auto {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, .2);
+      color: var(--green);
+      font-size: .75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
     .alert {
-      border-color: rgba(239, 68, 68, .6);
-      background: rgba(239, 68, 68, .1);
+      border-color: rgba(239, 68, 68, .5);
+      background: rgba(239, 68, 68, .12);
     }
 
     .alert strong { color: #fca5a5; }
 
-    .guide-list, .fields {
-      display: grid;
-      gap: 10px;
-    }
+    .guide-list { display: grid; gap: 8px; margin-top: 10px; }
 
     .guide-btn {
-      display: flex;
       width: 100%;
-      min-height: 56px;
+      min-height: 54px;
+      padding: 12px 14px;
+      display: flex;
       gap: 12px;
       align-items: center;
-      padding: 12px;
+      text-align: left;
       border: 1px solid var(--border);
       border-radius: 10px;
       background: #0f172a;
       color: var(--text);
-      text-align: left;
       cursor: pointer;
     }
 
-    .guide-btn:hover, .guide-btn:focus-visible {
-      border-color: var(--blue);
-      outline: none;
-    }
-
-    .guide-btn small {
-      display: block;
-      margin-top: 2px;
-      color: var(--muted);
-    }
+    .guide-btn:hover { border-color: var(--blue); }
+    .guide-btn small { color: var(--muted); display: block; font-size: .8rem; }
 
     .field {
       display: grid;
       gap: 6px;
+      margin-top: 10px;
     }
 
     label {
-      color: #d7deeb;
-      font-size: .87rem;
-      font-weight: 650;
+      color: #cbd5e1;
+      font-size: .85rem;
+      font-weight: 600;
     }
 
     input, select, textarea {
       width: 100%;
-      min-height: 46px;
+      min-height: 44px;
       padding: 10px 12px;
       border: 1px solid var(--border);
-      border-radius: 9px;
+      border-radius: 8px;
       background: #090f1d;
       color: var(--text);
     }
 
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    input:focus, select:focus, textarea:focus, button:focus-visible, a:focus-visible {
-      outline: 2px solid #79aaff;
-      outline-offset: 2px;
-    }
+    textarea { min-height: 100px; resize: vertical; }
 
     .btn, .police-link {
-      display: flex;
       width: 100%;
       min-height: 48px;
+      padding: 12px 16px;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 14px;
       border: 0;
       border-radius: 10px;
       background: var(--blue);
-      color: white;
-      font-weight: 750;
-      text-align: center;
-      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: .92rem;
       cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: background .2s, transform .1s;
     }
 
     .btn:hover, .police-link:hover { background: var(--blue-hover); }
-    .btn.secondary { background: #334155; }
+    .btn:active, .police-link:active { transform: scale(.99); }
     .btn.success { background: var(--green); color: #042f2e; }
+    .btn.success:hover { background: var(--green-hover); }
+    .btn.secondary { background: #334155; color: #fff; }
 
-    .police-card {
-      display: grid;
-      gap: 12px;
+    .police-highlight {
       border: 2px solid var(--blue);
       background: rgba(37, 99, 235, .1);
+      border-radius: 12px;
+      padding: 16px;
+      display: grid;
+      gap: 12px;
     }
 
-    .result {
-      display: none;
-      margin-top: 12px;
-    }
-
-    .result.show { display: block; }
-
-    .output {
+    .output-box {
       min-height: 120px;
-      max-height: 340px;
-      overflow: auto;
+      max-height: 320px;
+      overflow-y: auto;
       padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: #090f1d;
-      color: #e2e8f0;
       white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      font-size: .9rem;
+      word-break: break-word;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #090f1d;
+      font-size: .88rem;
     }
 
-    .checklist { display: grid; gap: 9px; }
+    .evidence-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
 
+    .evidence-thumb {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .checklist { display: grid; gap: 8px; }
     .check-item {
       display: flex;
-      gap: 11px;
+      gap: 12px;
       align-items: flex-start;
       padding: 12px;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       background: #0f172a;
       cursor: pointer;
     }
 
     .check-item input {
       width: 20px;
-      min-width: 20px;
       height: 20px;
-      min-height: 20px;
-      margin: 2px 0 0;
+      min-width: 20px;
+      margin-top: 2px;
       accent-color: var(--green);
     }
 
-    .progress-track {
-      height: 9px;
-      overflow: hidden;
-      border: 1px solid var(--border);
+    .progress-bar-bg {
+      height: 8px;
       border-radius: 99px;
       background: #090f1d;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin: 8px 0;
     }
 
-    .progress-fill {
-      width: 0;
+    .progress-bar-fill {
       height: 100%;
+      width: 0%;
       background: var(--green);
-      transition: width .2s ease;
+      transition: width .3s;
     }
 
     .modal {
+      display: none;
       position: fixed;
       inset: 0;
-      z-index: 10;
-      display: none;
+      background: rgba(0,0,0,.75);
+      z-index: 99;
       align-items: flex-end;
       justify-content: center;
       padding: 12px;
-      background: rgba(0, 0, 0, .75);
     }
 
     .modal.open { display: flex; }
 
     .modal-box {
-      width: min(100%, 560px);
-      max-height: 85vh;
-      overflow: auto;
-      padding: 18px;
+      width: min(100%, 550px);
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 20px;
+      background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 16px;
-      background: var(--panel);
     }
 
     .modal-head {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
-    .modal-head h2 { margin: 0; }
+    .close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 0;
+      background: #334155;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
 
-    .modal-box ol { padding-left: 22px; }
-    .modal-box li + li { margin-top: 10px; }
+    .modal-box ol { padding-left: 20px; }
+    .modal-box li { margin-bottom: 10px; }
 
     footer {
-      padding: 18px 4px 0;
-      color: var(--muted);
       text-align: center;
+      margin-top: 24px;
       font-size: .78rem;
+      color: var(--muted);
     }
 
-    @media (max-width: 390px) {
-      body { padding-inline: 9px; }
-      .tab-btn { font-size: .72rem; }
-      .card { padding: 13px; }
+    /* Formatação para impressão em PDF / Dossiê */
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      .app { width: 100%; max-width: 100%; }
+      header, .tabs, .police-highlight, #btn-gen-report, #btn-copy-report, #btn-print-dossier, .field input[type="file"], footer, #tab-panel-guides, #tab-panel-scanner, #tab-panel-checklist {
+        display: none !important;
+      }
+      #tab-panel-report, .card, #report-output-card {
+        display: block !important;
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        color: #000 !important;
+        page-break-inside: avoid;
+      }
+      .output-box {
+        background: #fff !important;
+        color: #000 !important;
+        border: 1px solid #000 !important;
+      }
+      .evidence-thumb {
+        height: 180px !important;
+        border: 1px solid #999 !important;
+      }
     }
   </style>
 </head>
 <body>
-  <main class="app">
+  <div class="app">
     <header>
       <h1>🛡️ SOS Proteção</h1>
-      <p>Apoio para agir com calma diante de golpes e fraudes.</p>
+      <p>Apoio imediato, análise e dossiê para B.O. oficial</p>
     </header>
 
-    <nav class="tabs" role="tablist" aria-label="Seções do aplicativo">
-      <button class="tab-btn" id="tab-guides" role="tab" aria-selected="true" aria-controls="panel-guides">Guias</button>
-      <button class="tab-btn" id="tab-scanner" role="tab" aria-selected="false" aria-controls="panel-scanner">🔍 Scanner</button>
-      <button class="tab-btn" id="tab-report" role="tab" aria-selected="false" aria-controls="panel-report">📋 B.O.</button>
-      <button class="tab-btn" id="tab-checklist" role="tab" aria-selected="false" aria-controls="panel-checklist">✅ Checklist</button>
+    <nav class="tabs" role="tablist">
+      <button class="tab-btn" id="tab-btn-guides" role="tab" aria-selected="true" aria-controls="tab-panel-guides">Guias</button>
+      <button class="tab-btn" id="tab-btn-scanner" role="tab" aria-selected="false" aria-controls="tab-panel-scanner">🔍 Scanner</button>
+      <button class="tab-btn" id="tab-btn-report" role="tab" aria-selected="false" aria-controls="tab-panel-report">📋 B.O.</button>
+      <button class="tab-btn" id="tab-btn-checklist" role="tab" aria-selected="false" aria-controls="tab-panel-checklist">✅ Checklist</button>
     </nav>
 
-    <section class="tab-panel active" id="panel-guides" role="tabpanel" aria-labelledby="tab-guides">
+    <!-- ABA 1: GUIAS -->
+    <section class="tab-panel active" id="tab-panel-guides" role="tabpanel">
       <div class="card alert">
-        <strong>⚠️ Se estiver sob pressão:</strong>
-        <p>Não pague nem compartilhe senhas ou códigos. Guarde as mensagens e confirme pedidos por outro canal confiável.</p>
+        <strong>⚠️ Regras imediatas de emergência:</strong>
+        <p>1. Não faça Pix nem transferências sob ameaça.<br>2. Não apague conversas nem áudios.<br>3. Toque na situação abaixo para instruções e auto-preenchimento do B.O.</p>
       </div>
 
       <div class="card">
-        <h2>Escolha a situação</h2>
+        <h2>Selecione o que está acontecendo:</h2>
         <div class="guide-list">
-          <button class="guide-btn" data-guide="extorsao"><span>🚨</span><span><strong>Ameaça ou extorsão</strong><small>Chantagem, intimidação ou ameaça</small></span></button>
-          <button class="guide-btn" data-guide="novo-numero"><span>👤</span><span><strong>Golpe do novo número</strong><small>Alguém se passa por familiar e pede dinheiro</small></span></button>
-          <button class="guide-btn" data-guide="conta"><span>📲</span><span><strong>Código ou conta invadida</strong><small>Pedem código SMS ou você perdeu acesso</small></span></button>
-          <button class="guide-btn" data-guide="banco"><span>💳</span><span><strong>Falso banco ou suporte</strong><small>Contato sobre compra, bloqueio ou movimentação</small></span></button>
-          <button class="guide-btn" data-guide="pix"><span>💸</span><span><strong>Transferência ou Pix feito</strong><small>Medidas iniciais se você já transferiu dinheiro</small></span></button>
+          <button class="guide-btn" data-guide="extorsao">
+            <span>🚨</span>
+            <div><strong>Ameaça ou Extorsão</strong><small>Chantagem íntima, falso faccionado ou ameaça</small></div>
+          </button>
+          <button class="guide-btn" data-guide="novo-numero">
+            <span>👤</span>
+            <div><strong>Golpe do Novo Número</strong><small>"Oi mãe/pai, troquei de número, me faz um pix"</small></div>
+          </button>
+          <button class="guide-btn" data-guide="conta">
+            <span>📲</span>
+            <div><strong>WhatsApp ou Conta Clonada</strong><small>Código SMS informado ou perda do acesso ao app</small></div>
+          </button>
+          <button class="guide-btn" data-guide="banco">
+            <span>💳</span>
+            <div><strong>Falso Suporte Bancário</strong><small>Ligação de falsa compra suspensa ou cartão clonado</small></div>
+          </button>
+          <button class="guide-btn" data-guide="pix">
+            <span>💸</span>
+            <div><strong>Transferência Já Realizada</strong><small>Passos para acionar o MED bancário com urgência</small></div>
+          </button>
         </div>
       </div>
     </section>
 
-    <section class="tab-panel" id="panel-scanner" role="tabpanel" aria-labelledby="tab-scanner">
-      <div class="card fields">
-        <div>
-          <h2>Verificar sinais de risco</h2>
-          <p class="notice">A análise é automática e não confirma se uma mensagem é verdadeira ou fraudulenta.</p>
-        </div>
+    <!-- ABA 2: SCANNER -->
+    <section class="tab-panel" id="tab-panel-scanner" role="tabpanel">
+      <div class="card">
+        <h2>🔍 Analisador Inteligente de Mensagem</h2>
+        <p class="notice">Cole a mensagem recebida. O sistema identificará sinais de risco e extrairá valores, telefones e contas automaticamente para o B.O.</p>
         <div class="field">
-          <label for="message-input">Texto suspeito</label>
-          <textarea id="message-input" placeholder="Cole a mensagem. Não inclua senhas ou códigos de acesso."></textarea>
+          <label for="scanner-input">Texto da mensagem:</label>
+          <textarea id="scanner-input" placeholder="Ex.: Oi mãe, quebrou meu celular, anota esse número provisório (11) 98765-4321. Preciso que você pague uma conta urgente de R$ 580,00 na chave pix teste@pix.com..."></textarea>
         </div>
-        <button class="btn" id="analyze-button" type="button">Analisar mensagem</button>
-        <div class="result card" id="scanner-result" aria-live="polite">
-          <h2 id="risk-heading"></h2>
-          <p id="risk-description"></p>
-          <ul id="risk-signals"></ul>
-          <p class="notice">Confirme pedidos por um canal oficial, mesmo que poucos sinais sejam encontrados.</p>
+        <button class="btn" id="btn-scan" style="margin-top: 12px;" type="button">Analisar e Extrair Dados</button>
+      </div>
+
+      <div class="card" id="scanner-result" style="display: none;">
+        <h2 id="scanner-title"></h2>
+        <p id="scanner-desc" class="notice"></p>
+        <ul id="scanner-list" style="margin: 10px 0 12px 20px; font-size: .9rem;"></ul>
+
+        <div id="scanner-extracted-box" style="display:none; padding:10px; background:#090f1d; border-radius:8px; border:1px solid var(--border); margin-bottom:12px; font-size:.85rem;">
+          <strong style="color:var(--green);">⚡ Dados encontrados no texto:</strong>
+          <div id="scanner-extracted-details" style="margin-top:6px; color:#cbd5e1;"></div>
         </div>
+
+        <button class="btn success" id="btn-transfer-to-bo" type="button">📋 Preencher B.O. com estes dados</button>
       </div>
     </section>
 
-    <section class="tab-panel" id="panel-report" role="tabpanel" aria-labelledby="tab-report">
-      <div class="card police-card">
-        <div>
-          <h2>🚔 Acessar Delegacia Eletrônica</h2>
-          <p class="notice">Escolha seu estado. O link abre em uma nova aba, se o navegador permitir.</p>
-        </div>
+    <!-- ABA 3: B.O. -->
+    <section class="tab-panel" id="tab-panel-report" role="tabpanel">
+      <!-- BLOCO DELEGACIA ELETRÔNICA -->
+      <div class="card police-highlight">
+        <h2>🚔 1. Acessar Delegacia Eletrônica Oficial</h2>
+        <p class="notice">Selecione seu Estado para abrir diretamente o portal seguro da Polícia Civil:</p>
+        
         <div class="field">
-          <label for="state-select">Estado</label>
+          <label for="state-select">Estado (UF):</label>
           <select id="state-select">
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AC - Acre</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AL - Alagoas</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AP - Amapá</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AM - Amazonas</option>
+            <option value="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" selected>SP - São Paulo</option>
+            <option value="https://dedic.pcerj.rj.gov.br/">RJ - Rio de Janeiro</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MG - Minas Gerais</option>
+            <option value="https://delegaciaonline.sesp.es.gov.br/">ES - Espírito Santo</option>
+            <option value="https://www.policiacivil.pr.gov.br/BO">PR - Paraná</option>
+            <option value="https://delegaciavirtual.sc.gov.br/">SC - Santa Catarina</option>
+            <option value="https://www.delegaciaonline.rs.gov.br/">RS - Rio Grande do Sul</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">BA - Bahia</option>
             <option value="https://www.delegaciaeletronica.ce.gov.br/beo/">CE - Ceará</option>
+            <option value="https://servicos.sds.pe.gov.br/delegacia/">PE - Pernambuco</option>
             <option value="https://delegaciaeletronica.pcdf.df.gov.br/">DF - Distrito Federal</option>
-            <option value="https://delegaciaonline.sesp.es.gov.br/">ES - Espírito Santo</option>
             <option value="https://raivirtual.ssp.go.gov.br/">GO - Goiás</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MA - Maranhão</option>
             <option value="https://portal.sesp.mt.gov.br/delegacia-web/">MT - Mato Grosso</option>
             <option value="https://devir.pc.ms.gov.br/">MS - Mato Grosso do Sul</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MG - Minas Gerais</option>
             <option value="https://delegaciavirtual.pa.gov.br/">PA - Pará</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MA - Maranhão</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">PB - Paraíba</option>
-            <option value="https://www.policiacivil.pr.gov.br/BO">PR - Paraná</option>
-            <option value="https://servicos.sds.pe.gov.br/delegacia/">PE - Pernambuco</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">PI - Piauí</option>
-            <option value="https://dedic.pcerj.rj.gov.br/">RJ - Rio de Janeiro</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RN - Rio Grande do Norte</option>
-            <option value="https://www.delegaciaonline.rs.gov.br/">RS - Rio Grande do Sul</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RO - Rondônia</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RR - Roraima</option>
-            <option value="https://delegaciavirtual.sc.gov.br/">SC - Santa Catarina</option>
-            <option value="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" selected>SP - São Paulo</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AL - Alagoas</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">PI - Piauí</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">SE - Sergipe</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AM - Amazonas</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RO - Rondônia</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">TO - Tocantins</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AC - Acre</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AP - Amapá</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RR - Roraima</option>
           </select>
         </div>
 
-        <!-- Link nativo: evita depender de window.open, frequentemente bloqueado em celulares. -->
-        <a class="police-link" id="police-link"
-           href="https://www.delegaciaeletronica.policiacivil.sp.gov.br/"
-           target="_blank" rel="noopener noreferrer">
-          🚨 Abrir Delegacia Eletrônica
+        <a class="police-link" id="police-link" href="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" target="_blank" rel="noopener noreferrer">
+          🚨 Abrir Delegacia Eletrônica Oficial
         </a>
-        <p class="notice">O portal pode não registrar todos os tipos de ocorrência online. Siga as instruções oficiais do estado.</p>
       </div>
 
-      <div class="card fields">
-        <div>
-          <h2>📝 Rascunho para o relato</h2>
-          <p class="notice">O texto é criado neste aparelho. Revise os fatos antes de usar no registro oficial.</p>
-        </div>
+      <!-- FORMULÁRIO DO B.O. -->
+      <div class="card">
+        <div id="auto-badge-target"></div>
+        <h2>📝 2. Dados e Relato Estruturado</h2>
+        <p class="notice">Estes campos são preenchidos manualmente ou importados do Scanner:</p>
+
         <div class="field">
-          <label for="occurrence-type">Tipo de ocorrência</label>
-          <select id="occurrence-type">
-            <option>Golpe do novo número / falso familiar</option>
-            <option>Falsa central ou suporte bancário</option>
-            <option>Fraude envolvendo Pix ou transferência</option>
-            <option>Tentativa de extorsão ou chantagem</option>
-            <option>Invasão de conta ou tentativa de obter código</option>
-            <option>Outro / não sei informar</option>
+          <label for="field-crime">Tipo de Ocorrência:</label>
+          <select id="field-crime">
+            <option value="Golpe do novo número / Falso parente">Golpe do novo número / Falso parente</option>
+            <option value="Fraude bancária / Falsa central de atendimento">Fraude bancária / Falsa central de atendimento</option>
+            <option value="Golpe via Pix / Compra fraudulenta">Golpe via Pix / Compra fraudulenta</option>
+            <option value="Extorsão / Chantagem / Falso faccionado">Extorsão / Chantagem / Falso faccionado</option>
+            <option value="Invasão de conta / Perda de acesso">Invasão de conta / Perda de acesso</option>
+            <option value="Outro tipo de golpe">Outro tipo de golpe</option>
           </select>
         </div>
+
         <div class="field">
-          <label for="event-date">Data aproximada</label>
-          <input id="event-date" type="date">
+          <label for="field-date">Data do ocorrido:</label>
+          <input type="date" id="field-date">
         </div>
+
         <div class="field">
-          <label for="event-time">Horário aproximado (opcional)</label>
-          <input id="event-time" type="time">
+          <label for="field-contact">Contato do autor (telefone, perfil ou link):</label>
+          <input type="text" id="field-contact" placeholder="Ex.: (11) 98765-4321">
         </div>
+
         <div class="field">
-          <label for="contact">Telefone ou perfil usado (opcional)</label>
-          <input id="contact" type="text" autocomplete="off">
+          <label for="field-pix">Chave Pix ou conta do recebedor (se houver):</label>
+          <input type="text" id="field-pix" placeholder="Chave Pix ou dados bancários informados">
         </div>
+
         <div class="field">
-          <label for="pix">Chave Pix ou conta informada (opcional)</label>
-          <input id="pix" type="text" autocomplete="off">
+          <label for="field-amount">Valor envolvido:</label>
+          <input type="text" id="field-amount" placeholder="Ex.: R$ 580,00">
         </div>
+
         <div class="field">
-          <label for="amount">Valor envolvido (opcional)</label>
-          <input id="amount" type="text" inputmode="decimal" placeholder="Ex.: R$ 250,00">
+          <label for="field-facts">Histórico e descrição dos fatos:</label>
+          <textarea id="field-facts" placeholder="Descreva os fatos em ordem cronológica..."></textarea>
         </div>
-        <div class="field">
-          <label for="facts">O que aconteceu, em ordem</label>
-          <textarea id="facts" placeholder="Descreva somente fatos que consiga confirmar."></textarea>
+
+        <!-- UPLOAD DE PRINTS DAS CONVERSAS -->
+        <div class="field" style="margin-top: 14px;">
+          <label for="field-evidence">📸 Anexar Prints das Conversas / Comprovantes (Local):</label>
+          <input type="file" id="field-evidence" accept="image/*" multiple>
+          <p class="notice">As imagens ficam guardadas apenas na memória do seu celular para inclusão no dossiê/impressão.</p>
+          <div class="evidence-preview-grid" id="evidence-preview"></div>
         </div>
-        <div class="field">
-          <label for="evidence">Provas preservadas (opcional)</label>
-          <textarea id="evidence" placeholder="Ex.: mensagens, capturas de tela, comprovantes ou protocolos."></textarea>
-        </div>
-        <button class="btn secondary" id="generate-report" type="button">Gerar rascunho</button>
+
+        <button class="btn secondary" id="btn-gen-report" style="margin-top: 14px;" type="button">Gerar Rascunho do Relato</button>
       </div>
 
-      <div class="card fields result" id="report-card">
-        <h2>Revise e copie o rascunho</h2>
-        <div class="output" id="report-output" tabindex="0"></div>
-        <p class="notice">Não use informações que não correspondam aos fatos. O rascunho não substitui o boletim oficial.</p>
-        <button class="btn success" id="copy-report" type="button">Copiar rascunho</button>
+      <div class="card" id="report-output-card" style="display: none;">
+        <h2>📋 Relato Pronto</h2>
+        <div class="output-box" id="report-text"></div>
+        
+        <div style="display: grid; gap: 8px; margin-top: 12px;">
+          <button class="btn success" id="btn-copy-report" type="button">Copiar Texto para Colar no B.O.</button>
+          <button class="btn secondary" id="btn-print-dossier" type="button">🖨️ Salvar Dossiê Completo (PDF com Prints)</button>
+        </div>
       </div>
     </section>
 
-    <section class="tab-panel" id="panel-checklist" role="tabpanel" aria-labelledby="tab-checklist">
+    <!-- ABA 4: CHECKLIST -->
+    <section class="tab-panel" id="tab-panel-checklist" role="tabpanel">
       <div class="card">
-        <h2>✅ Checklist de proteção</h2>
-        <p class="notice">O progresso é guardado somente neste navegador.</p>
-        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
-        <p class="notice" id="progress-text" aria-live="polite"></p>
+        <h2>✅ Medidas de Contenção</h2>
+        <p class="notice">Seu progresso é gravado apenas neste aparelho.</p>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="checklist-progress"></div>
+        </div>
+        <p class="notice" id="checklist-counter">0 de 5 concluídas</p>
       </div>
-      <div class="card checklist" id="checklist">
-        <label class="check-item"><input type="checkbox" data-check="evidence"><span><strong>Preserve as provas</strong><br><span class="notice">Guarde mensagens, números, horários e comprovantes.</span></span></label>
-        <label class="check-item"><input type="checkbox" data-check="stop"><span><strong>Não faça pagamentos sob pressão</strong><br><span class="notice">Confirme pedidos por outro canal confiável.</span></span></label>
-        <label class="check-item"><input type="checkbox" data-check="bank"><span><strong>Avise o banco se houve transação</strong><br><span class="notice">Use o aplicativo ou telefone oficial e anote o protocolo.</span></span></label>
-        <label class="check-item"><input type="checkbox" data-check="security"><span><strong>Proteja suas contas</strong><br><span class="notice">Troque senhas comprometidas e encerre sessões desconhecidas.</span></span></label>
-        <label class="check-item"><input type="checkbox" data-check="report"><span><strong>Avalie registrar a ocorrência</strong><br><span class="notice">Consulte a Polícia Civil da sua região.</span></span></label>
-      </div>
-      <button class="btn secondary" id="reset-checklist" type="button">Desmarcar checklist</button>
-    </section>
 
-    <footer>
-      Orientações gerais. Os dados preenchidos não são enviados por este aplicativo. Em perigo imediato, procure os serviços de emergência.
-    </footer>
-  </main>
-
-  <div class="modal" id="guide-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-box">
-      <div class="modal-head">
-        <h2 id="modal-title">Orientações</h2>
-        <button class="btn secondary" id="close-modal" type="button" style="width:auto;min-height:40px;padding:7px 12px" aria-label="Fechar">Fechar</button>
-      </div>
-      <ol id="modal-steps"></ol>
-    </div>
-  </div>
-
-  <script>
-    // Navegação explícita: não depende da variável global event.
-    const tabButtons = [...document.querySelectorAll(".tab-btn")];
-    const tabPanels = [...document.querySelectorAll(".tab-panel")];
-
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const targetId = button.getAttribute("aria-controls");
-
-        tabButtons.forEach((item) => {
-          item.setAttribute("aria-selected", String(item === button));
-        });
-
-        tabPanels.forEach((panel) => {
-          panel.classList.toggle("active", panel.id === targetId);
-        });
-      });
-    });
-
-    // Atualiza o link nativo ao mudar o estado.
-    const stateSelect = document.getElementById("state-select");
-    const policeLink = document.getElementById("police-link");
-
-    function updatePoliceLink() {
-      policeLink.href = stateSelect.value;
-      policeLink.textContent = "🚨 Abrir Delegacia Eletrônica — " +
-        stateSelect.options[stateSelect.selectedIndex].text;
-    }
-
-    stateSelect.addEventListener("change", updatePoliceLink);
-    updatePoliceLink();
-
-    const guides = {
-      extorsao: {
-        title: "Ameaça ou extorsão",
-        steps: [
-          "Não faça pagamentos sob pressão; pagar não garante que as ameaças parem.",
-          "Preserve mensagens, números, perfis, horários e dados de pagamento.",
-          "Não envie mais imagens, documentos, códigos ou informações pessoais.",
-          "Peça apoio a alguém de confiança e procure a Polícia Civil para orientação.",
-          "Se houver perigo físico imediato, vá para um local seguro e acione os serviços de emergência."
-        ]
-      },
-      "novo-numero": {
-        title: "Golpe do novo número",
-        steps: [
-          "Não transfira dinheiro com base apenas em uma mensagem.",
-          "Ligue para o número que você já tinha salvo ou confirme pessoalmente.",
-          "Não use telefone ou link enviado pelo contato suspeito para confirmar a história.",
-          "Guarde capturas de tela e avise familiares que possam receber pedidos semelhantes."
-        ]
-      },
-      conta: {
-        title: "Código ou conta invadida",
-        steps: [
-          "Nunca compartilhe códigos recebidos por SMS, aplicativo ou e-mail.",
-          "Use somente o procedimento oficial de recuperação da plataforma.",
-          "Troque senhas comprometidas, encerre sessões desconhecidas e ative autenticação em duas etapas.",
-          "Avise seus contatos por outro meio se alguém puder estar usando sua conta."
-        ]
-      },
-      banco: {
-        title: "Falso banco ou suporte",
-        steps: [
-          "Não informe senhas ou códigos, não instale aplicativos a pedido do contato e não acesse links recebidos.",
-          "Encerre a conversa e consulte o aplicativo oficial do banco.",
-          "Ligue para um número oficial, como o que está no cartão ou no site legítimo da instituição.",
-          "Se compartilhou dados ou autorizou uma operação, contate o banco imediatamente."
-        ]
-      },
-      pix: {
-        title: "Transferência ou Pix feito",
-        steps: [
-          "Contate imediatamente seu banco pelo aplicativo ou telefone oficial.",
-          "Pergunte quais procedimentos de contestação ou tentativa de recuperação estão disponíveis.",
-          "Guarde comprovantes, mensagens, dados do destinatário e números de protocolo.",
-          "Considere registrar a ocorrência na Polícia Civil da sua região."
-        ]
-      }
-    };
-
-    const modal = document.getElementById("guide-modal");
-    const modalTitle = document.getElementById("modal-title");
-    const modalSteps = document.getElementById("modal-steps");
-
-    document.querySelectorAll("[data-guide]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const guide = guides[button.dataset.guide];
-        if (!guide) return;
-
-        modalTitle.textContent = guide.title;
-        modalSteps.replaceChildren();
-
-        guide.steps.forEach((text) => {
-          const item = document.createElement("li");
-          item.textContent = text;
-          modalSteps.appendChild(item);
-        });
-
-        modal.classList.add("open");
-        document.getElementById("close-modal").focus();
-      });
-    });
-
-    function closeGuideModal() {
-      modal.classList.remove("open");
-    }
-
-    document.getElementById("close-modal").addEventListener("click", closeGuideModal);
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) closeGuideModal();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeGuideModal();
-    });
-
-    // Scanner: indica padrões, mas não determina se a mensagem é golpe.
-    document.getElementById("analyze-button").addEventListener("click", () => {
-      const text = document.getElementById("message-input").value.trim().toLocaleLowerCase("pt-BR");
-      if (!text) {
-        alert("Cole o texto da mensagem para analisar.");
-        return;
-      }
-
-      const patterns = [
-        [/urgente|imediatamente|agora mesmo|último aviso|bloqueio hoje/, 2, "A mensagem cria urgência ou pressão."],
-        [/\bpix\b|transferência|transfira|boleto|depósito|pague|pagamento/, 2, "Há menção a pagamento ou transferência."],
-        [/novo número|troquei de número|mudei de número|oi mãe|oi pai/, 3, "Há sinais comuns de falso familiar."],
-        [/código|seis dígitos|senha|token|autenticação/, 3, "A mensagem menciona senhas ou códigos."],
-        [/clique|acesse o link|regularize|https?:\/\/|bit\.ly|tinyurl/, 2, "Há convite para abrir link ou regularizar algo."],
-        [/ameaça|vazar|chantagem|prisão|mandado/, 3, "Há sinais de intimidação ou ameaça."]
-      ];
-
-      let score = 0;
-      const found = [];
-
-      patterns.forEach(([regex, points, message]) => {
-        if (regex.test(text)) {
-          score += points;
-          found.push(message);
-        }
-      });
-
-      const result = document.getElementById("scanner-result");
-      const heading = document.getElementById("risk-heading");
-      const description = document.getElementById("risk-description");
-      const list = document.getElementById("risk-signals");
-
-      list.replaceChildren();
-
-      if (score >= 5) {
-        heading.textContent = "🚨 Muitos sinais de risco";
-        description.textContent = "Não pague nem compartilhe dados antes de verificar por outro canal.";
-      } else if (score >= 2) {
-        heading.textContent = "⚠️ Há sinais suspeitos";
-        description.textContent = "Confirme a identidade do remetente por um canal independente.";
-      } else {
-        heading.textContent = "🟢 Poucos sinais encontrados";
-        description.textContent = "Isso não prova que a mensagem seja segura. Continue atento.";
-      }
-
-      if (found.length === 0) found.push("Os padrões configurados não foram encontrados.");
-      found.forEach((message) => {
-        const item = document.createElement("li");
-        item.textContent = message;
-        list.appendChild(item);
-      });
-
-      result.classList.add("show");
-    });
-
-    // Gera o rascunho sem enviar dados para servidor.
-    document.getElementById("generate-report").addEventListener("click", () => {
-      const value = (id, fallback) =>
-        document.getElementById(id).value.trim() || fallback;
-
-      const report = [
-        "RASCUNHO DE RELATO PARA REVISÃO",
-        "",
-        "Tipo de ocorrência: " + value("occurrence-type", "Não informado"),
-        "Data aproximada: " + value("event-date", "Não informada"),
-        "Horário aproximado: " + value("event-time", "Não informado"),
-        "Contato ou perfil usado: " + value("contact", "Não informado"),
-        "Chave Pix ou conta informada: " + value("pix", "Não informada"),
-        "Valor envolvido: " + value("amount", "Não informado"),
-        "",
-        "Descrição dos fatos:",
-        value("facts", "Não informado."),
-        "",
-        "Provas preservadas:",
-        value("evidence", "Não informado."),
-        "",
-        "Revise e corrija qualquer informação antes de usar em um registro oficial."
-      ].join("\n");
-
-      document.getElementById("report-output").textContent = report;
-      document.getElementById("report-card").classList.add("show");
-    });
-
-    // Tenta Clipboard API; se falhar, seleciona o texto para cópia manual.
-    document.getElementById("copy-report").addEventListener("click", async () => {
-      const output = document.getElementById("report-output");
-      const text = output.textContent;
-
-      try {
-        if (!navigator.clipboard || !window.isSecureContext) {
-          throw new Error("Clipboard indisponível");
-        }
-        await navigator.clipboard.writeText(text);
-        alert("Rascunho copiado.");
-      } catch {
-        const range = document.createRange();
-        range.selectNodeContents(output);
-        const selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        output.focus();
-        alert("O texto foi selecionado. Use a opção Copiar do seu celular.");
-      }
-    });
-
-    // Checklist salvo localmente no aparelho.
-    const checks = [...document.querySelectorAll("[data-check]")];
-    const storageKey = "sos-protecao-checklist-v2";
-
-    function updateChecklist() {
-      const completed = checks.filter((checkbox) => checkbox.checked).length;
-      document.getElementById("progress-fill").style.width =
-        (completed / checks.length * 100) + "%";
-      document.getElementById("progress-text").textContent =
-        completed + " de " + checks.length + " concluídas";
-
-      const state = {};
-      checks.forEach((checkbox) => {
-        state[checkbox.dataset.check] = checkbox.checked;
-      });
-
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(state));
-      } catch {
-        // O checklist ainda funciona se o armazenamento local estiver bloqueado.
-      }
-    }
-
-    try {
-      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      checks.forEach((checkbox) => {
-        checkbox.checked = saved[checkbox.dataset.check] === true;
-      });
-    } catch {
-      // Se houver dados locais inválidos, inicia o checklist desmarcado.
-    }
-
-    checks.forEach((checkbox) => checkbox.addEventListener("change", updateChecklist));
-    updateChecklist();
-
-    document.getElementById("reset-checklist").addEventListener("click", () => {
-      checks.forEach((checkbox) => { checkbox.checked = false; });
-      updateChecklist();
-    });
-  </script>
-</body>
-</html>
+      <div class="card checklist">
+        <label class="check-item"><input type="checkbox" data-chk="1"><span><strong>Tirar prints das conversas</strong><br><small class="notice">Salve comprovantes, números e horários antes de bloquear qualquer contato.</small></span></label>
+        <label class="check-item"><input type="checkbox" data-chk="2"><span><strong>Cessar qualquer pagamento</strong><br><small class="notice">Não transfira nada sob pressão ou ameaça de vazamento.</small></span></label>
+        <label class="check-item"><input type="checkbox" data-chk="3"><span><strong>Avisar seu banco imediatamente</strong><br><small class="notice">Se houve Pix, solicite a abertura urgente do MED (Mecanismo Especial de Devolução).</small></span></label>
+        <label class="check-item"><input type="checkbox" data-chk="4"><span><strong>Registrar Boletim de Ocorrência</strong><br><small class="notice">Use o link na aba B.O. para abrir a Delegacia Oficial do seu estado.</small></span></label>
+        <label class="check-item"><input type
