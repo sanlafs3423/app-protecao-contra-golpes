@@ -17,24 +17,23 @@
       --blue: #2563eb;
       --blue-hover: #1d4ed8;
       --green: #10b981;
-      --amber: #f59e0b;
+      --green-hover: #059669;
       --red: #ef4444;
+      --amber: #f59e0b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
-      padding: 16px 12px 36px;
+      padding: 16px 12px 40px;
       background: var(--bg);
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.5;
     }
 
-    button, input, select, textarea, a.btn {
-      font: inherit;
-    }
+    button, input, select, textarea, a { font: inherit; }
 
     .app {
       width: min(100%, 680px);
@@ -43,7 +42,7 @@
 
     header {
       text-align: center;
-      padding: 12px 4px 18px;
+      padding: 10px 4px 18px;
     }
 
     header h1 {
@@ -60,8 +59,8 @@
     .tabs {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      padding: 4px;
+      gap: 5px;
+      padding: 5px;
       margin-bottom: 16px;
       background: var(--panel-soft);
       border: 1px solid var(--border);
@@ -75,10 +74,10 @@
       border-radius: 9px;
       background: transparent;
       color: var(--muted);
-      font-size: .8rem;
+      font-size: .82rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all .2s;
+      transition: background .2s, color .2s;
     }
 
     .tab-btn[aria-selected="true"] {
@@ -161,10 +160,10 @@
 
     textarea { min-height: 100px; resize: vertical; }
 
-    .btn, a.btn {
+    .btn {
       width: 100%;
       min-height: 48px;
-      padding: 12px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -178,14 +177,16 @@
       cursor: pointer;
       text-decoration: none;
       text-align: center;
-      transition: background .2s;
+      transition: background .2s, transform .1s;
     }
 
-    .btn:hover, a.btn:hover { background: var(--blue-hover); }
+    .btn:hover { background: var(--blue-hover); }
+    .btn:active { transform: scale(.99); }
     .btn.success { background: var(--green); color: #042f2e; }
+    .btn.success:hover { background: var(--green-hover); }
     .btn.secondary { background: #334155; color: #fff; }
 
-    .police-box {
+    .police-highlight {
       border: 2px solid var(--blue);
       background: rgba(37, 99, 235, .1);
       border-radius: 12px;
@@ -218,7 +219,14 @@
       background: #0f172a;
       cursor: pointer;
     }
-    .check-item input { width: 20px; height: 20px; min-width: 20px; margin-top: 2px; }
+
+    .check-item input {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      margin-top: 2px;
+      accent-color: var(--green);
+    }
 
     .progress-bar-bg {
       height: 8px;
@@ -228,6 +236,7 @@
       overflow: hidden;
       margin: 8px 0;
     }
+
     .progress-bar-fill {
       height: 100%;
       width: 0%;
@@ -235,7 +244,7 @@
       transition: width .3s;
     }
 
-    .notice { font-size: .8rem; color: var(--muted); }
+    .notice { font-size: .82rem; color: var(--muted); }
 
     .modal {
       display: none;
@@ -247,7 +256,9 @@
       justify-content: center;
       padding: 12px;
     }
+
     .modal.open { display: flex; }
+
     .modal-box {
       width: min(100%, 550px);
       max-height: 80vh;
@@ -257,12 +268,14 @@
       border: 1px solid var(--border);
       border-radius: 16px;
     }
+
     .modal-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 14px;
     }
+
     .close-btn {
       width: 36px;
       height: 36px;
@@ -273,6 +286,7 @@
       font-size: 1.2rem;
       cursor: pointer;
     }
+
     .modal-box ol { padding-left: 20px; }
     .modal-box li { margin-bottom: 10px; }
 
@@ -288,21 +302,21 @@
   <div class="app">
     <header>
       <h1>🛡️ SOS Proteção</h1>
-      <p>Guia de emergência contra fraudes e extorsões</p>
+      <p>Apoio imediato para agir contra golpes e fraudes</p>
     </header>
 
     <nav class="tabs" role="tablist">
-      <button class="tab-btn" id="t-guides" role="tab" aria-selected="true" aria-controls="p-guides">Guias</button>
-      <button class="tab-btn" id="t-scanner" role="tab" aria-selected="false" aria-controls="p-scanner">🔍 Scanner</button>
-      <button class="tab-btn" id="t-report" role="tab" aria-selected="false" aria-controls="p-report">📋 B.O.</button>
-      <button class="tab-btn" id="t-check" role="tab" aria-selected="false" aria-controls="p-check">✅ Checklist</button>
+      <button class="tab-btn" id="tab-btn-guides" role="tab" aria-selected="true">Guias</button>
+      <button class="tab-btn" id="tab-btn-scanner" role="tab" aria-selected="false">🔍 Scanner</button>
+      <button class="tab-btn" id="tab-btn-report" role="tab" aria-selected="false">📋 B.O.</button>
+      <button class="tab-btn" id="tab-btn-checklist" role="tab" aria-selected="false">✅ Checklist</button>
     </nav>
 
-    <!-- GUIA -->
-    <section class="tab-panel active" id="p-guides" role="tabpanel">
+    <!-- ABA 1: GUIAS -->
+    <section class="tab-panel active" id="tab-panel-guides" role="tabpanel">
       <div class="card alert">
         <strong>⚠️ Regras imediatas de emergência:</strong>
-        <p>1. Não faça Pix ou pagamentos sob ameaça.<br>2. Não apague conversas nem áudios.<br>3. Tire prints com data, hora e número visíveis.</p>
+        <p>1. Não faça Pix nem pagamentos sob pressão ou chantagem.<br>2. Não apague as conversas, fotos ou mensagens.<br>3. Tire capturas de tela com número, data e hora visíveis.</p>
       </div>
 
       <div class="card">
@@ -314,265 +328,267 @@
           </button>
           <button class="guide-btn" data-guide="novo-numero">
             <span>👤</span>
-            <div><strong>Golpe do Novo Número</strong><small>"Oi mãe/pai, troquei de celular e preciso pagar uma conta"</small></div>
+            <div><strong>Golpe do Novo Número</strong><small>"Oi mãe/pai, troquei de número, me faz um pix urgente"</small></div>
           </button>
           <button class="guide-btn" data-guide="conta">
             <span>📲</span>
-            <div><strong>WhatsApp ou Conta Clonada</strong><small>Pediram código SMS ou perdeu acesso ao app</small></div>
+            <div><strong>WhatsApp ou Conta Clonada</strong><small>Pediram código SMS ou perdeu o acesso ao app</small></div>
           </button>
           <button class="guide-btn" data-guide="banco">
             <span>💳</span>
-            <div><strong>Falso Suporte Bancário</strong><small>SMS ou ligação de compra suspeita / cartão bloqueado</small></div>
+            <div><strong>Falso Suporte Bancário</strong><small>Ligação de compra suspeita ou cartão bloqueado</small></div>
           </button>
           <button class="guide-btn" data-guide="pix">
             <span>💸</span>
-            <div><strong>Já fiz a transferência</strong><small>Passo a passo urgente para acionar o MED / Banco</small></div>
+            <div><strong>Já fiz a transferência</strong><small>Como agir rápido e acionar o bloqueio / MED no banco</small></div>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- SCANNER -->
-    <section class="tab-panel" id="p-scanner" role="tabpanel">
+    <!-- ABA 2: SCANNER -->
+    <section class="tab-panel" id="tab-panel-scanner" role="tabpanel">
       <div class="card">
-        <h2>🔍 Analisador de Mensagem</h2>
-        <p class="notice">Cole o texto que recebeu para verificar indícios comuns de fraude.</p>
+        <h2>🔍 Analisador de Mensagem Suspeita</h2>
+        <p class="notice">Cole o texto que recebeu para verificar indícios de golpe.</p>
         <div class="field">
-          <label for="msg-input">Texto da mensagem:</label>
-          <textarea id="msg-input" placeholder="Ex: Oi mãe, meu celular quebrou, anota meu número novo e me faz um pix urgente..."></textarea>
+          <label for="scanner-input">Texto da mensagem:</label>
+          <textarea id="scanner-input" placeholder="Ex.: Oi mãe, perdi meu celular, salva meu número novo e me ajuda pagando um boleto agora..."></textarea>
         </div>
         <button class="btn" id="btn-scan" style="margin-top: 12px;">Analisar Mensagem</button>
       </div>
 
-      <div class="card" id="scan-res" style="display: none;">
-        <h2 id="scan-title"></h2>
-        <p id="scan-desc"></p>
-        <ul id="scan-list" style="margin: 10px 0 0 20px; font-size: .9rem;"></ul>
+      <div class="card" id="scanner-result" style="display: none;">
+        <h2 id="scanner-title"></h2>
+        <p id="scanner-desc" class="notice"></p>
+        <ul id="scanner-list" style="margin: 10px 0 0 20px; font-size: .9rem;"></ul>
       </div>
     </section>
 
-    <!-- ABA B.O. -->
-    <section class="tab-panel" id="p-report" role="tabpanel">
-      <!-- BLOCO REGISTRO DIRETO -->
-      <div class="card police-box">
-        <h2>🚔 1. Registrar B.O. Online Oficial</h2>
-        <p class="notice">Escolha o seu Estado para abrir a Delegacia Eletrônica Oficial da Polícia Civil:</p>
+    <!-- ABA 3: B.O. -->
+    <section class="tab-panel" id="tab-panel-report" role="tabpanel">
+      <!-- BLOCO REGISTRAR DIRETAMENTE -->
+      <div class="card police-highlight">
+        <h2>🚔 Abrir Delegacia Eletrônica Oficial</h2>
+        <p class="notice">Selecione o seu estado para abrir o site oficial da Polícia Civil:</p>
         
         <div class="field">
-          <label for="uf-select">Selecione seu Estado:</label>
-          <select id="uf-select">
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AC - Acre</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AL - Alagoas</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AP - Amapá</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AM - Amazonas</option>
+          <label for="state-select">Seu Estado (UF):</label>
+          <select id="state-select">
+            <option value="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" selected>SP - São Paulo</option>
+            <option value="https://dedic.pcerj.rj.gov.br/">RJ - Rio de Janeiro</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MG - Minas Gerais</option>
+            <option value="https://delegaciaonline.sesp.es.gov.br/">ES - Espírito Santo</option>
+            <option value="https://www.policiacivil.pr.gov.br/BO">PR - Paraná</option>
+            <option value="https://delegaciavirtual.sc.gov.br/">SC - Santa Catarina</option>
+            <option value="https://www.delegaciaonline.rs.gov.br/">RS - Rio Grande do Sul</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">BA - Bahia</option>
             <option value="https://www.delegaciaeletronica.ce.gov.br/beo/">CE - Ceará</option>
+            <option value="https://servicos.sds.pe.gov.br/delegacia/">PE - Pernambuco</option>
             <option value="https://delegaciaeletronica.pcdf.df.gov.br/">DF - Distrito Federal</option>
-            <option value="https://delegaciaonline.sesp.es.gov.br/">ES - Espírito Santo</option>
             <option value="https://raivirtual.ssp.go.gov.br/">GO - Goiás</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MA - Maranhão</option>
             <option value="https://portal.sesp.mt.gov.br/delegacia-web/">MT - Mato Grosso</option>
             <option value="https://devir.pc.ms.gov.br/">MS - Mato Grosso do Sul</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MG - Minas Gerais</option>
             <option value="https://delegaciavirtual.pa.gov.br/">PA - Pará</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">MA - Maranhão</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">PB - Paraíba</option>
-            <option value="https://www.policiacivil.pr.gov.br/BO">PR - Paraná</option>
-            <option value="https://servicos.sds.pe.gov.br/delegacia/">PE - Pernambuco</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">PI - Piauí</option>
-            <option value="https://dedic.pcerj.rj.gov.br/">RJ - Rio de Janeiro</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RN - Rio Grande do Norte</option>
-            <option value="https://www.delegaciaonline.rs.gov.br/">RS - Rio Grande do Sul</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RO - Rondônia</option>
-            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RR - Roraima</option>
-            <option value="https://delegaciavirtual.sc.gov.br/">SC - Santa Catarina</option>
-            <option value="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" selected>SP - São Paulo</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AL - Alagoas</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">PI - Piauí</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">SE - Sergipe</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AM - Amazonas</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RO - Rondônia</option>
             <option value="https://delegaciavirtual.sinesp.gov.br/portal/">TO - Tocantins</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AC - Acre</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">AP - Amapá</option>
+            <option value="https://delegaciavirtual.sinesp.gov.br/portal/">RR - Roraima</option>
           </select>
         </div>
 
-        <a id="link-delegacia" href="https://www.delegaciaeletronica.policiacivil.sp.gov.br/" target="_blank" rel="noopener noreferrer" class="btn">
-          🚨 ABRIR DELEGACIA ONLINE OFICIAL
-        </a>
+        <button class="btn" id="btn-open-police" type="button">
+          🚨 ABRIR DELEGACIA ONLINE AGORA
+        </button>
       </div>
 
-      <!-- GERADOR DE TEXTO -->
+      <!-- GERADOR DE RELATO -->
       <div class="card">
-        <h2>📝 2. Estruturar seu Relato</h2>
-        <p class="notice">Preencha os campos abaixo para gerar um relato cronológico pronto para colar no campo de texto do B.O.</p>
+        <h2>📝 Gerar Relato para Colar no B.O.</h2>
+        <p class="notice">Preencha o que souber para estruturar os fatos em ordem cronológica:</p>
         
         <div class="field">
-          <label for="rep-type">Tipo de Crime:</label>
-          <select id="rep-type">
+          <label for="field-crime">Tipo de Golpe:</label>
+          <select id="field-crime">
             <option>Golpe do novo número / Falso parente</option>
-            <option>Fraude Bancária / Falsa Central</option>
-            <option>Estelionato via Pix / Falso Pagamento</option>
-            <option>Extorsão / Ameaça de vazamento de fotos</option>
+            <option>Fraude bancária / Falsa central de atendimento</option>
+            <option>Golpe via Pix / Compra fraudulenta</option>
+            <option>Extorsão / Chantagem / Falso faccionado</option>
             <option>Invasão de conta / Perda de acesso</option>
+            <option>Outro tipo de golpe</option>
           </select>
         </div>
 
         <div class="field">
-          <label for="rep-date">Data do ocorrido:</label>
-          <input type="date" id="rep-date">
+          <label for="field-date">Data aproximada:</label>
+          <input type="date" id="field-date">
         </div>
 
         <div class="field">
-          <label for="rep-contact">Contato do autor (telefone / link de perfil):</label>
-          <input type="text" id="rep-contact" placeholder="Ex: (11) 99999-9999">
+          <label for="field-contact">Contato do autor (telefone, @ ou link):</label>
+          <input type="text" id="field-contact" placeholder="Ex.: (11) 98765-4321">
         </div>
 
         <div class="field">
-          <label for="rep-pix">Chave Pix ou conta do recebedor (se houver):</label>
-          <input type="text" id="rep-pix" placeholder="Chave Pix ou dados bancários passados">
+          <label for="field-pix">Chave Pix ou conta do recebedor (se houver):</label>
+          <input type="text" id="field-pix" placeholder="Chave Pix ou dados bancários informados">
         </div>
 
         <div class="field">
-          <label for="rep-val">Valor solicitado ou transferido:</label>
-          <input type="text" id="rep-val" placeholder="Ex: R$ 850,00">
+          <label for="field-amount">Valor envolvido:</label>
+          <input type="text" id="field-amount" placeholder="Ex.: R$ 500,00">
         </div>
 
         <div class="field">
-          <label for="rep-desc">O que aconteceu (ordem cronológica):</label>
-          <textarea id="rep-desc" placeholder="Ex: O autor me contatou dizendo que era meu familiar, pediu um pagamento com urgência para pagar um fornecedor..."></textarea>
+          <label for="field-facts">Conte o que aconteceu (passo a passo):</label>
+          <textarea id="field-facts" placeholder="Descreva como o autor entrou em contato, o que alegou e o que solicitou..."></textarea>
         </div>
 
-        <button class="btn secondary" id="btn-gen-rep" style="margin-top: 12px;">Gerar Texto do Relato</button>
+        <button class="btn secondary" id="btn-gen-report" style="margin-top: 12px;" type="button">Gerar Rascunho do Relato</button>
       </div>
 
-      <div class="card" id="rep-result-box" style="display: none;">
-        <h2>📋 Relato Gerado</h2>
-        <div class="output-box" id="rep-text"></div>
-        <button class="btn success" id="btn-copy-rep" style="margin-top: 10px;">Copiar Texto do Relato</button>
+      <div class="card" id="report-output-card" style="display: none;">
+        <h2>📋 Relato Pronto para Cópia</h2>
+        <div class="output-box" id="report-text"></div>
+        <button class="btn success" id="btn-copy-report" style="margin-top: 10px;" type="button">Copiar Texto do Relato</button>
       </div>
     </section>
 
-    <!-- CHECKLIST -->
-    <section class="tab-panel" id="p-check" role="tabpanel">
+    <!-- ABA 4: CHECKLIST -->
+    <section class="tab-panel" id="tab-panel-checklist" role="tabpanel">
       <div class="card">
         <h2>✅ Medidas de Contenção</h2>
-        <p class="notice">Marque as etapas conforme for concluindo:</p>
+        <p class="notice">Marque as ações concluídas. O progresso fica salvo no seu navegador.</p>
         <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="bar-fill"></div>
+          <div class="progress-bar-fill" id="checklist-progress"></div>
         </div>
-        <p class="notice" id="prog-txt">0 de 5 etapas concluídas</p>
+        <p class="notice" id="checklist-counter">0 de 5 concluídas</p>
       </div>
 
       <div class="card checklist">
-        <label class="check-item"><input type="checkbox" data-c="1"><span><strong>Tirar prints das conversas</strong><br><small class="notice">Salve comprovantes, número de telefone e horário antes de bloquear.</small></span></label>
-        <label class="check-item"><input type="checkbox" data-c="2"><span><strong>Cessar qualquer pagamento</strong><br><small class="notice">Não transfira nada sob promessa de desbloqueio ou exclusão de material.</small></span></label>
-        <label class="check-item"><input type="checkbox" data-c="3"><span><strong>Notificar seu banco</strong><br><small class="notice">Se enviou dinheiro, ligue na central do banco e peça abertura do MED (Mecanismo Especial de Devolução).</small></span></label>
-        <label class="check-item"><input type="checkbox" data-c="4"><span><strong>Registrar Boletim de Ocorrência</strong><br><small class="notice">Utilize a aba B.O. para abrir a delegacia oficial do seu estado.</small></span></label>
-        <label class="check-item"><input type="checkbox" data-c="5"><span><strong>Bloquear e denunciar os contatos</strong><br><small class="notice">Após salvar as evidências, bloqueie no WhatsApp/Instagram.</small></span></label>
+        <label class="check-item"><input type="checkbox" data-chk="1"><span><strong>Tirar prints das conversas</strong><br><small class="notice">Salve comprovantes, números e horários antes de bloquear qualquer contato.</small></span></label>
+        <label class="check-item"><input type="checkbox" data-chk="2"><span><strong>Cessar qualquer pagamento</strong><br><small class="notice">Não transfira nada sob pressão ou ameaça de vazamento.</small></span></label>
+        <label class="check-item"><input type="checkbox" data-chk="3"><span><strong>Avisar seu banco imediatamente</strong><br><small class="notice">Se houve Pix, solicite a abertura urgente do MED (Mecanismo Especial de Devolução).</small></span></label>
+        <label class="check-item"><input type="checkbox" data-chk="4"><span><strong>Registrar Boletim de Ocorrência</strong><br><small class="notice">Use o botão na aba B.O. para abrir a Delegacia Oficial do seu estado.</small></span></label>
+        <label class="check-item"><input type="checkbox" data-chk="5"><span><strong>Bloquear os contatos suspeitos</strong><br><small class="notice">Depois de guardar as provas, bloqueie as contas nos aplicativos.</small></span></label>
       </div>
     </section>
 
     <footer>
-      Aplicativo de orientação emergencial e apoio ao cidadão. Dados e textos não são salvos em servidores externos.
+      SOS Proteção • Orientações para segurança do cidadão. Nenhum dado digitado é armazenado em servidores externos.
     </footer>
   </div>
 
-  <!-- MODAL DE ORIENTAÇÕES -->
-  <div class="modal" id="modal">
+  <!-- MODAL DE ORIENTAÇÃO -->
+  <div class="modal" id="guide-modal">
     <div class="modal-box">
       <div class="modal-head">
-        <h2 id="modal-t" style="font-size: 1.15rem;"></h2>
-        <button class="close-btn" id="modal-close">&times;</button>
+        <h2 id="modal-title" style="font-size: 1.15rem;"></h2>
+        <button class="close-btn" id="btn-close-modal" type="button">&times;</button>
       </div>
-      <ol id="modal-c"></ol>
-      <button class="btn secondary" id="modal-ok" style="margin-top: 14px;">Entendido</button>
+      <ol id="modal-content"></ol>
+      <button class="btn secondary" id="btn-modal-done" style="margin-top: 14px;" type="button">Entendi</button>
     </div>
   </div>
 
   <script>
-    // Gerenciador de Abas
-    const tabs = [
-      { b: document.getElementById('t-guides'), p: document.getElementById('p-guides') },
-      { b: document.getElementById('t-scanner'), p: document.getElementById('p-scanner') },
-      { b: document.getElementById('t-report'), p: document.getElementById('p-report') },
-      { b: document.getElementById('t-check'), p: document.getElementById('p-check') }
+    // 1. NAVEGAÇÃO DE ABAS
+    const tabList = [
+      { btn: document.getElementById('tab-btn-guides'), panel: document.getElementById('tab-panel-guides') },
+      { btn: document.getElementById('tab-btn-scanner'), panel: document.getElementById('tab-panel-scanner') },
+      { btn: document.getElementById('tab-btn-report'), panel: document.getElementById('tab-panel-report') },
+      { btn: document.getElementById('tab-btn-checklist'), panel: document.getElementById('tab-panel-checklist') }
     ];
 
-    tabs.forEach(({ b, p }) => {
-      b.addEventListener('click', () => {
-        tabs.forEach(t => {
-          t.b.setAttribute('aria-selected', 'false');
-          t.p.classList.remove('active');
+    tabList.forEach(({ btn, panel }) => {
+      btn.addEventListener('click', () => {
+        tabList.forEach(t => {
+          t.btn.setAttribute('aria-selected', 'false');
+          t.panel.classList.remove('active');
         });
-        b.setAttribute('aria-selected', 'true');
-        p.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        panel.classList.add('active');
       });
     });
 
-    // Seletor de Delegacia por Estado
-    const ufSelect = document.getElementById('uf-select');
-    const linkDelegacia = document.getElementById('link-delegacia');
+    // 2. BOTÃO DE ABRIR DELEGACIA ONLINE
+    const stateSelect = document.getElementById('state-select');
+    const btnOpenPolice = document.getElementById('btn-open-police');
 
-    ufSelect.addEventListener('change', () => {
-      const selectedOption = ufSelect.options[ufSelect.selectedIndex];
-      linkDelegacia.href = ufSelect.value;
-      linkDelegacia.innerHTML = `🚨 ABRIR DELEGACIA DE ${selectedOption.text.split('-')[0].trim()} (OFICIAL)`;
+    btnOpenPolice.addEventListener('click', () => {
+      const url = stateSelect.value;
+      if (url) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
     });
 
-    // Guias Modais
+    // 3. GUIAS RÁPIDOS (MODAL)
     const guidesData = {
       extorsao: {
-        t: "Ameaça ou Extorsão",
+        title: "Ameaça ou Extorsão",
         steps: [
-          "NÃO PAGUE: Pagar não encerra o golpe, apenas mostra aos autores que você é vulnerável.",
-          "NÃO APAGUE A CONVERSA: Ela é a prova principal do crime.",
-          "TIRE PRINTS: Registre conversas, horários, dados bancários passados e número que entrou em contato.",
-          "INTERROMPA O CONTATO: Pare de responder imediatamente.",
-          "REGISTRE O B.O.: Acesse a aba B.O. deste app e registre na Delegacia Eletrônica do seu estado."
+          "NÃO PAGUE NADA: Pagar não encerra a chantagem, apenas incentiva novos pedidos de dinheiro.",
+          "NÃO APAGUE MENSAGENS: Elas constituem a principal prova material do crime.",
+          "TIRE PRINTS DE TUDO: Registre conversas, perfis, horários e contas passadas para depósito.",
+          "INTERROMPA O CONTATO: Não discuta nem responda sob pressão.",
+          "REGISTRE O B.O.: Abra a aba B.O. deste aplicativo e envie as informações na Delegacia Oficial da sua região."
         ]
       },
       "novo-numero": {
-        t: "Golpe do Novo Número",
+        title: "Golpe do Novo Número",
         steps: [
-          "Ligue para o número antigo do seu familiar ou parente para confirmar antes de qualquer coisa.",
-          "Peça para fazer uma chamada de vídeo para ver o rosto da pessoa.",
-          "Nunca faça Pix para contas com nome de terceiros desconhecidos.",
-          "Avise familiares e amigos que estão usando a foto dele para aplicar golpes."
+          "Ligue diretamente para o telefone que você já tinha salvo da pessoa antes de tomar qualquer atitude.",
+          "Faça uma chamada de vídeo para confirmar quem está do outro lado.",
+          "Nunca transfira para contas cujo titular seja um terceiro desconhecido.",
+          "Avise familiares e amigos para não atenderem solicitações vindas daquele número."
         ]
       },
       conta: {
-        t: "WhatsApp ou Conta Invadida",
+        title: "WhatsApp ou Conta Invadida",
         steps: [
-          "Nunca informe o código de 6 dígitos que chega por SMS a ninguém.",
-          "Se perdeu o acesso ao WhatsApp, envie e-mail urgente para support@whatsapp.com com o assunto 'Conta desativada: +55 (seu ddd) (seu número)'.",
-          "Avise pessoas próximas em redes sociais para não mandarem dinheiro caso recebam pedidos.",
-          "Ative a confirmação em duas etapas nas suas configurações assim que recuperar."
+          "Nunca forneça códigos de verificação de 6 dígitos recebidos por SMS.",
+          "Se perdeu o acesso ao WhatsApp, mande e-mail para support@whatsapp.com informando: 'Conta desativada: +55 (seu DDD) (seu número)'.",
+          "Avise contatos próximos por redes sociais para não transferirem nenhum valor solicitado em seu nome.",
+          "Ative a verificação em duas etapas assim que recuperar o acesso."
         ]
       },
       banco: {
-        t: "Falso Banco ou Central",
+        title: "Falso Suporte Bancário",
         steps: [
-          "Bancos NUNCA pedem para você fazer Pix para 'estornar' ou 'cancelar' compras.",
+          "Instituições financeiras NUNCA ligam pedindo para você realizar Pix de estorno ou teste.",
           "Desligue a chamada imediatamente.",
-          "Ligue para o número oficial que está atrás do seu cartão bancário.",
-          "Não instale aplicativos de acesso remoto (AnyDesk, TeamViewer) solicitados pelo atendente."
+          "Ligue para o número oficial impresso no verso do seu cartão bancário.",
+          "Nunca instale aplicativos de controle remoto (como AnyDesk ou TeamViewer) a pedido de terceiros."
         ]
       },
       pix: {
-        t: "Transferência Realizada",
+        title: "Transferência Realizada",
         steps: [
           "Ligue IMEDIATAMENTE para o SAC/Central do seu banco.",
-          "Solicite a abertura do protocolo do MED (Mecanismo Especial de Devolução do Pix).",
-          "Anote todos os números de protocolo de atendimento fornecidos.",
-          "Gere o B.O. na aba 'B.O.' com os dados do comprovante e anexe no seu banco."
+          "Solicite o acionamento do MED (Mecanismo Especial de Devolução do Pix).",
+          "Anote todos os protocolos de atendimento fornecidos pelo atendente.",
+          "Gere o relato do fato na aba 'B.O.' deste aplicativo e registre a ocorrência na polícia."
         ]
       }
     };
 
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modal-t');
-    const modalContent = document.getElementById('modal-c');
+    const modal = document.getElementById('guide-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
 
     document.querySelectorAll('[data-guide]').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = guidesData[btn.dataset.guide];
         if (!item) return;
-        modalTitle.textContent = item.t;
+        modalTitle.textContent = item.title;
         modalContent.innerHTML = '';
         item.steps.forEach(st => {
           const li = document.createElement('li');
@@ -584,71 +600,13 @@
     });
 
     const closeModal = () => modal.classList.remove('open');
-    document.getElementById('modal-close').addEventListener('click', closeModal);
-    document.getElementById('modal-ok').addEventListener('click', closeModal);
+    document.getElementById('btn-close-modal').addEventListener('click', closeModal);
+    document.getElementById('btn-modal-done').addEventListener('click', closeModal);
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
-    // Scanner
+    // 4. SCANNER DE MENSAGEM
     document.getElementById('btn-scan').addEventListener('click', () => {
-      const txt = (document.getElementById('msg-input').value || '').toLowerCase();
-      const res = document.getElementById('scan-res');
-      const t = document.getElementById('scan-title');
-      const d = document.getElementById('scan-desc');
-      const list = document.getElementById('scan-list');
-
-      if (!txt.trim()) {
-        alert('Cole uma mensagem primeiro!');
-        return;
-      }
-
-      list.innerHTML = '';
-      const flags = [];
-
-      if (/urgente|agora|imediatamente|hoje|bloqueio|cancelar/.test(txt)) flags.push('Indução de urgência ou ameaça de prejuízo rápido');
-      if (/pix|transferência|transfira|boleto|depósito|pagar/.test(txt)) flags.push('Solicitação de transferência ou pagamento');
-      if (/novo número|número novo|troquei de número|mãe|pai/.test(txt)) flags.push('Tentativa de se passar por conhecido/parente');
-      if (/código|sms|autenticação|token|senha/.test(txt)) flags.push('Pedido de código de verificação ou credencial');
-      if (/link|clique|acesse|http|bit\.ly/.test(txt)) flags.push('Links desconhecidos ou encurtados');
-
-      res.style.display = 'block';
-      if (flags.length >= 2) {
-        t.innerHTML = '🚨 Alto Risco de Golpe Identificado';
-        t.style.color = '#ef4444';
-        d.textContent = 'A mensagem possui elementos clássicos de golpes cibernéticos:';
-        flags.forEach(f => {
-          const li = document.createElement('li');
-          li.textContent = f;
-          list.appendChild(li);
-        });
-      } else {
-        t.innerHTML = '⚠️ Atenção / Sinais Pouco Claros';
-        t.style.color = '#f59e0b';
-        d.textContent = 'Não encontramos padrões evidentes no texto, mas mantenha cautela e nunca faça pagamentos nem compartilhe códigos recebidos.';
-      }
-    });
-
-    // Gerador de B.O.
-    document.getElementById('btn-gen-rep').addEventListener('click', () => {
-      const type = document.getElementById('rep-type').value;
-      const date = document.getElementById('rep-date').value || 'Data não informada';
-      const contact = document.getElementById('rep-contact').value || 'Não informado';
-      const pix = document.getElementById('rep-pix').value || 'Não informado';
-      const val = document.getElementById('rep-val').value || 'Não informado';
-      const desc = document.getElementById('rep-desc').value || 'Sem descrição detalhada.';
-
-      const out = `RELATO DE OCORRÊNCIA PARA POLÍCIA CIVIL\n\nNATUREZA DO FATO: ${type}\nDATA APROXIMADA: ${date}\nCONTATO UTILIZADO PELO AUTOR: ${contact}\nCHAVE PIX / CONTA FORNECIDA: ${pix}\nVALOR ENVOLVIDO: ${val}\n\nDESCRIÇÃO CRONOLÓGICA DOS FATOS:\n${desc}\n\n(Informo que guardei todos os comprovantes, capturas de tela e registros da conversa para fornecimento pericial à autoridade policial).`;
-
-      document.getElementById('rep-text').textContent = out;
-      document.getElementById('rep-result-box').style.display = 'block';
-    });
-
-    document.getElementById('btn-copy-rep').addEventListener('click', () => {
-      const text = document.getElementById('rep-text').textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Texto copiado com sucesso! Agora clique no botão azul para abrir a Delegacia Eletrônica do seu estado e cole no formulário.');
-      }).catch(() => {
-        alert('Selecione e copie o texto manualmente da caixa.');
-      });
-    });
-
-    // Checklist
+      const text = (document.getElementById('scanner-input').value || '').toLowerCase();
+      const res = document.getElementById('scanner-result');
+      const t = document.getElementById('scanner-title');
+      const d = document.getElementById('scanner-desc');
